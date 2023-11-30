@@ -1,14 +1,4 @@
 import { auth, signOut } from "@/auth.config";
-import { getSession } from "next-auth/react";
-
-interface User {
-  refresh: string;
-  access: string;
-  expires: number;
-  iat: number;
-  exp: number;
-  jti: string;
-}
 
 export default async function DashboardPage() {
   const session = await auth();

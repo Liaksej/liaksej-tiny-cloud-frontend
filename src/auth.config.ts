@@ -1,22 +1,11 @@
-import NextAuth, { NextAuthConfig, Session } from "next-auth";
-import { LoginData } from "@/lib/definitions";
-import { cookies } from "next/headers";
+import NextAuth, { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
+import { User } from "@/lib/definitions";
 
 // These two values should be a bit less than actual token lifetimes
 const BACKEND_ACCESS_TOKEN_LIFETIME = 45 * 60; // 45 minutes
 const BACKEND_REFRESH_TOKEN_LIFETIME = 7 * 24 * 60 * 60; // 7 days
-
-interface User {
-  id: string;
-  name?: string | null;
-  email?: string | null;
-  image?: string | null;
-  refresh?: string;
-  access?: string;
-  refreshExpires?: string;
-}
 
 async function getUser(email: string, password: string) {
   const response = await fetch(
@@ -33,8 +22,7 @@ async function getUser(email: string, password: string) {
     },
   );
   if (response.ok) {
-    const data = await response.json();
-    return data;
+    return await response.json();
   } else {
     console.log("Error logging in" + response.status);
     return null;
@@ -66,7 +54,7 @@ export const authConfig = {
           const data = await getUser(email, password);
           if (!data) return null;
 
-          const user = {
+          return {
             id: data.user.pk,
             email: data.user.email,
             name: data.user.username,
@@ -75,8 +63,6 @@ export const authConfig = {
             refreshExpires:
               getCurrentEpochTime() + BACKEND_REFRESH_TOKEN_LIFETIME,
           };
-
-          return user;
         }
 
         console.log("Invalid credentials");
@@ -137,7 +123,7 @@ export const authConfig = {
       const isOnDashboard = nextUrl.pathname.startsWith("/dashboard");
       if (isOnDashboard) {
         if (isLoggedIn) return true;
-        return false; // Redirect unathenticated users to login page
+        return false;
       } else if (isLoggedIn) {
         return Response.redirect(new URL("/dashboard", nextUrl));
       }
