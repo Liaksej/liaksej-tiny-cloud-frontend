@@ -1,5 +1,7 @@
 "use server";
 import { signIn } from "@/auth";
+import { cookies } from "next/headers";
+import { getCurrentEpochTime } from "@/auth.config";
 
 export async function authenticate(
   prevState: string | undefined,
