@@ -1,7 +1,5 @@
 "use server";
-import { signIn } from "@/auth";
-import { cookies } from "next/headers";
-import { getCurrentEpochTime } from "@/auth.config";
+import { signIn, auth } from "@/auth.config";
 
 export async function authenticate(
   prevState: string | undefined,
@@ -9,6 +7,7 @@ export async function authenticate(
 ) {
   try {
     await signIn("credentials", Object.fromEntries(formData));
+    console.log(auth());
   } catch (error) {
     if ((error as Error).message.includes("CredentialsSignin")) {
       return "CredentialSignin";

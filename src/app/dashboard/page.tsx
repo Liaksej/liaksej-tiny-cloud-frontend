@@ -1,4 +1,5 @@
-import { auth } from "@/auth";
+import { auth, signOut } from "@/auth.config";
+import { getSession } from "next-auth/react";
 
 interface User {
   refresh: string;
@@ -11,10 +12,19 @@ interface User {
 
 export default async function DashboardPage() {
   const session = await auth();
+
+  async function handleSignOut() {
+    "use server";
+    return await signOut();
+  }
+
   return (
     <>
       <div>You are logged in correctly!</div>
-      <div>{JSON.stringify(session?.user as User | undefined)}</div>
+      <div>{JSON.stringify(session)}</div>
+      <form action={handleSignOut}>
+        <button type="submit">Sign out</button>
+      </form>
     </>
   );
 }
