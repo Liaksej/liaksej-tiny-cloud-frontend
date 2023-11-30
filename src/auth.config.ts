@@ -85,6 +85,12 @@ export const authConfig = {
     }),
   ],
   callbacks: {
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.access = token.access as string;
+      }
+      return session;
+    },
     async jwt({ token, user }) {
       const wideUser = user as User;
       if (user) {

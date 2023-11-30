@@ -21,9 +21,14 @@ export default async function DashboardPage() {
   return (
     <>
       <div>You are logged in correctly!</div>
-      <div>{JSON.stringify(session)}</div>
+      <div>{JSON.stringify(session?.user)}</div>
       <form action={handleSignOut}>
-        <button type="submit">Sign out</button>
+        <button
+          className="mt-4 rounded-md bg-red-500 hover:bg-red-600 px-4 py-2 text-white"
+          type="submit"
+        >
+          Sign out
+        </button>
       </form>
     </>
   );
