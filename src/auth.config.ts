@@ -15,6 +15,7 @@ async function getUser(email: string, password: string) {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify({
         email,
         password,
@@ -123,7 +124,9 @@ export const authConfig = {
     async authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
       const isOnDashboard = nextUrl.pathname.startsWith("/dashboard");
-      if (isOnDashboard) {
+      const isOnAdmin = nextUrl.pathname.startsWith("/admin");
+      const isOnStatic = nextUrl.pathname.startsWith("/static");
+      if (isOnDashboard || isOnAdmin || isOnStatic) {
         if (isLoggedIn) return true;
         return false;
       } else if (isLoggedIn) {

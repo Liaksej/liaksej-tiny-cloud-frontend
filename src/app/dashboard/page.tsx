@@ -1,4 +1,5 @@
 import { auth, signOut } from "@/auth.config";
+import Link from "next/link";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -20,6 +21,9 @@ export default async function DashboardPage() {
           Sign out
         </button>
       </form>
+      <Link href="/admin" className="mt-4">
+        Админка
+      </Link>
     </>
   );
 }
