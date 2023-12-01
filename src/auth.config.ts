@@ -106,7 +106,7 @@ export const authConfig = {
           return token;
         } else {
           console.log("Error refreshing access token" + response.status);
-          return token;
+          return await signOut();
         }
       }
       const currentEpochTime = getCurrentEpochTime();
@@ -114,6 +114,8 @@ export const authConfig = {
         token.refreshExpires &&
         currentEpochTime > Number(token.refreshExpires)
       ) {
+        token.refresh = undefined;
+        token.access = undefined;
         return await signOut();
       }
       return token;
