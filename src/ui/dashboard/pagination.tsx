@@ -19,6 +19,10 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
   };
   const allPages = generatePagination(currentPage, totalPages);
 
+  if (totalPages === 1) {
+    return null;
+  }
+
   return (
     <>
       {/* NOTE: comment in this code when you get to this point in the course */}

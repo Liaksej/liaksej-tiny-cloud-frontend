@@ -34,7 +34,7 @@ export async function fetchFilteredInvoices(
   try {
     const filesResponse = await fetch(
       `http://localhost:8000/api/cloud/files/${
-        currentPage !== 1 ? `?page=${currentPage}` : ""
+        currentPage > 1 ? `?page=${currentPage}` : ""
       }`,
       {
         headers: {
@@ -73,8 +73,7 @@ export async function fetchInvoicesPages(query: string | number) {
 
     const { count } = await countResponse.json();
 
-    const totalPages = Math.ceil(Number(count) / ITEMS_PER_PAGE);
-    return totalPages;
+    return Math.ceil(Number(count) / ITEMS_PER_PAGE);
   } catch (error) {
     console.error("Fetch Error:", error);
     throw new Error("Failed to fetch total number of files.");
