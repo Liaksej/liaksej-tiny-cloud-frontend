@@ -41,14 +41,21 @@ export async function sendFileToServer(formData: FormData) {
   }
 }
 
-export async function deleteInvoice(formData: FormData) {
+export async function deleteFile(formData: FormData) {
   try {
     const session = await auth();
     if (!session) {
       console.error("No session");
     }
     const response = await fetch(
-      `http://127.0.0.1:8000/api/cloud/files/${formData.get("id")}/`,
+      `http://127.0.0.1:8000/api/cloud/files/${formData.get("id")}`,
+      {
+        method: "DELETE",
+        headers: {
+          ContentType: "application/json",
+          Authorization: `Bearer ${session?.user?.access}`,
+        },
+      },
     );
     if (!response.ok) {
       throw new Error(response.statusText);
