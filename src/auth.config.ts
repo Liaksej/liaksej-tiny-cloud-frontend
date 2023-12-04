@@ -41,7 +41,7 @@ export const authConfig = {
   session: {
     maxAge: BACKEND_REFRESH_TOKEN_LIFETIME,
   },
-  debug: true,
+  debug: false,
   providers: [
     Credentials({
       async authorize(credentials) {
@@ -80,14 +80,15 @@ export const authConfig = {
     },
     async jwt({ token, user }) {
       const wideUser = user as User;
+      const currentEpochTime = getCurrentEpochTime();
       if (user) {
         token.refresh = wideUser.refresh;
         token.access = wideUser.access;
-        token.expires = getCurrentEpochTime() + BACKEND_ACCESS_TOKEN_LIFETIME;
+        token.expires = currentEpochTime + BACKEND_ACCESS_TOKEN_LIFETIME;
         token.refreshExpires = wideUser.refreshExpires;
         return token;
       }
-      if (token.expires && getCurrentEpochTime > token.expires) {
+      if (token.expires && currentEpochTime > Number(token.expires)) {
         const response = await fetch(
           `${process.env.NEXTAUTH_BACKEND_URL}auth/token/refresh/`,
           {
@@ -103,14 +104,13 @@ export const authConfig = {
         if (response.ok) {
           const data = await response.json();
           token.access = data.access;
-          token.expires = getCurrentEpochTime() + BACKEND_ACCESS_TOKEN_LIFETIME;
+          token.expires = currentEpochTime + BACKEND_ACCESS_TOKEN_LIFETIME;
           return token;
         } else {
           console.log("Error refreshing access token" + response.status);
           return await signOut();
         }
       }
-      const currentEpochTime = getCurrentEpochTime();
       if (
         token.refreshExpires &&
         currentEpochTime > Number(token.refreshExpires)
