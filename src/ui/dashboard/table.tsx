@@ -1,6 +1,6 @@
 import { UpdateInvoice, DeleteFile } from "@/ui/dashboard/buttons";
 import { formatDateToLocal, formatSize } from "@/lib/utils";
-import { fetchFilteredInvoices } from "@/lib/data";
+import { fetchFilteredFiles } from "@/lib/data";
 import { File } from "@/lib/definitions";
 
 export default async function InvoicesTable({
@@ -10,7 +10,7 @@ export default async function InvoicesTable({
   query: string;
   currentPage: number;
 }) {
-  const files = await fetchFilteredInvoices(query, currentPage);
+  const files = await fetchFilteredFiles(query, currentPage);
 
   return (
     <div className="mt-6 flow-root">

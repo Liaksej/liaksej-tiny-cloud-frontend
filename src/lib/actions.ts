@@ -2,6 +2,8 @@
 
 import { signIn, auth } from "@/auth.config";
 import { revalidatePath } from "next/cache";
+import { FileEditSchema, State } from "@/lib/definitions";
+import { redirect } from "next/navigation";
 
 export async function authenticate(
   prevState: string | undefined,
@@ -65,4 +67,45 @@ export async function deleteFile(formData: FormData) {
   } catch (e) {
     return { message: "Fetch Error: Failed to Delete File." };
   }
+}
+
+export async function updateFile(prevState: State, formData: FormData) {
+  const session = await auth();
+
+  const validateFields = FileEditSchema.safeParse({
+    id: formData.get("id"),
+    original_name: formData.get("original_name"),
+    comment: formData.get("comment"),
+    public_url: formData.get("public_url"),
+  });
+
+  if (!validateFields.success) {
+    return {
+      errors: validateFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed Save Changes.",
+    };
+  }
+
+  const { id, original_name, comment, public_url } = validateFields.data;
+
+  try {
+    const response = await fetch(
+      `http://127.0.0.1:8000/api/cloud/files/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          ContentType: "application/json",
+          Authorization: `Bearer ${session?.user?.access}`,
+        },
+        body: JSON.stringify({ original_name, comment, public_url }),
+      },
+    );
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+  } catch (e) {
+    return { message: "Database Error: Failed to Update Invoice." };
+  }
+  revalidatePath("/dashboard");
+  redirect("/dashboard");
 }

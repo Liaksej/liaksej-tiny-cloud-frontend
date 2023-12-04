@@ -24,10 +24,7 @@ import { auth } from "@/auth.config";
 
 const ITEMS_PER_PAGE = 10;
 
-export async function fetchFilteredInvoices(
-  query: string,
-  currentPage: number,
-) {
+export async function fetchFilteredFiles(query: string, currentPage: number) {
   noStore();
   const session = await auth();
 
@@ -53,7 +50,7 @@ export async function fetchFilteredInvoices(
   }
 }
 
-export async function fetchInvoicesPages(query: string | number) {
+export async function fetchFilesPages(query: string | number) {
   noStore();
   const session = await auth();
   try {
@@ -80,30 +77,29 @@ export async function fetchInvoicesPages(query: string | number) {
   }
 }
 
-// export async function fetchInvoiceById(id: string) {
-//   noStore();
-//   try {
-//     const data = await sql<InvoiceForm>`
-//       SELECT
-//         invoices.id,
-//         invoices.customer_id,
-//         invoices.amount,
-//         invoices.status
-//       FROM invoices
-//       WHERE invoices.id = ${id};
-//     `;
-//
-//     const invoice = data.rows.map((invoice) => ({
-//       ...invoice,
-//       // Convert amount from cents to dollars
-//       amount: invoice.amount / 100,
-//     }));
-//
-//     return invoice[0];
-//   } catch (error) {
-//     console.error("Database Error:", error);
-//   }
-// }
+export async function fetchFile(id: string) {
+  noStore();
+  const session = await auth();
+  try {
+    const countResponse = await fetch(
+      `http://127.0.0.1:8000/api/cloud/files/${id}`,
+      {
+        headers: {
+          ContentType: "application/json",
+          Authorization: `Bearer ${session?.user?.access}`,
+        },
+      },
+    );
+
+    if (!countResponse.ok) {
+      throw new Error("Failed to fetch file.");
+    }
+
+    return await countResponse.json();
+  } catch (error) {
+    console.error("Fetch Error:", error);
+  }
+}
 
 // export async function fetchCustomers() {
 //   noStore();

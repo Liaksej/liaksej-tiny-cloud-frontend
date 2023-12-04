@@ -1,6 +1,6 @@
 import { auth } from "@/auth.config";
 import { lusitana } from "@/ui/fonts";
-import { fetchInvoicesPages } from "@/lib/data";
+import { fetchFilesPages } from "@/lib/data";
 import Search from "@/ui/dashboard/search";
 import Table from "@/ui/dashboard/table";
 import Pagination from "@/ui/dashboard/pagination";
@@ -19,7 +19,7 @@ export default async function Page({
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
 
-  const totalPages = await fetchInvoicesPages(query);
+  const totalPages = await fetchFilesPages(query);
 
   return (
     <main id="main">

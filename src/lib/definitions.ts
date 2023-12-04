@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export interface User {
   id: string;
   name?: string | null;
@@ -42,3 +44,28 @@ export interface File {
   date_downloaded: Date;
   user: string;
 }
+
+export interface FileEdit {
+  id: string;
+  original_name: string;
+  comment?: string;
+  public_url?: string;
+}
+
+export const FileEditSchema = z.object({
+  id: z.string().uuid(),
+  original_name: z.string(),
+  comment: z.string(),
+  public_url: z.string().optional(),
+});
+
+export type State = {
+  errors?:
+    | {
+        original_name?: string[];
+        comment?: string[];
+        public_url?: Boolean;
+      }
+    | {};
+  message?: string | null;
+};
