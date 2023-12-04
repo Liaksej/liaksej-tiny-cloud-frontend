@@ -32,3 +32,13 @@ export type LatestInvoice = {
 export type LatestInvoiceRaw = Omit<LatestInvoice, "amount"> & {
   amount: number;
 };
+
+export interface File {
+  id: string;
+  original_name: string;
+  comment?: string;
+  size: number;
+  date_created: Date;
+  date_downloaded: Date;
+  user: string;
+}

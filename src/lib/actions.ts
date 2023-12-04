@@ -40,3 +40,22 @@ export async function sendFileToServer(formData: FormData) {
     console.error(error);
   }
 }
+
+export async function deleteInvoice(formData: FormData) {
+  try {
+    const session = await auth();
+    if (!session) {
+      console.error("No session");
+    }
+    const response = await fetch(
+      `http://127.0.0.1:8000/api/cloud/files/${formData.get("id")}/`,
+    );
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    revalidatePath("/dashboard");
+    return { message: "Deleted File." };
+  } catch (e) {
+    return { message: "Fetch Error: Failed to Delete File." };
+  }
+}

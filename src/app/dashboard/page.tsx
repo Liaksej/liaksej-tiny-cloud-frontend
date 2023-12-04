@@ -29,34 +29,46 @@ import { auth } from "@/auth.config";
 import Cards from "@/ui/dashboard/cards";
 import Link from "next/link";
 import { lusitana } from "@/ui/fonts";
+import { fetchInvoicesPages } from "@/lib/data";
+import Search from "@/ui/dashboard/search";
+import Table from "@/ui/dashboard/table";
+import Pagination from "@/ui/dashboard/pagination";
+import { InvoicesTableSkeleton } from "@/ui/skeletons";
 import { Suspense } from "react";
-import {
-  CardsSkeleton,
-  LatestInvoicesSkeleton,
-  RevenueChartSkeleton,
-} from "@/ui/skeletons";
 
-export default async function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: {
+    query?: string;
+    page?: string;
+  };
+}) {
   const session = await auth();
+  const query = searchParams?.query || "";
+  const currentPage = Number(searchParams?.page) || 1;
+
+  const totalPages = await fetchInvoicesPages(query);
+
   return (
     <main id="main">
-      <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
-        Files
-      </h1>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <Suspense fallback={<CardsSkeleton />}>
-          <div></div>
+      <div className="w-full">
+        <div className="flex w-full items-center justify-between">
+          <h1 className={`${lusitana.className} text-2xl`}>Invoices</h1>
+        </div>
+        <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
+          <Search placeholder="Search invoices..." />
+          {/*<CreateInvoice/>*/}
+        </div>
+        <Suspense
+          key={query + currentPage}
+          fallback={<InvoicesTableSkeleton />}
+        >
+          <Table query={query} currentPage={currentPage} />
         </Suspense>
-      </div>
-      <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
-        <Suspense fallback={<RevenueChartSkeleton />}>
-          <div></div>
-        </Suspense>
-        <Suspense fallback={<LatestInvoicesSkeleton />}>
-          <div></div>
-        </Suspense>
-        <div>You are logged in correctly!</div>
-        <div>{JSON.stringify(session?.user)}</div>
+        <div className="mt-5 flex w-full justify-center">
+          <Pagination totalPages={totalPages} />
+        </div>
       </div>
     </main>
   );
