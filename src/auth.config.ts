@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
-import { User } from "@/lib/definitions";
+import { AuthUser } from "@/lib/definitions";
 import { adminCheck } from "@/lib/data";
 
 // These two values should be a bit less than actual token lifetimes
@@ -80,7 +80,7 @@ export const authConfig = {
       return session;
     },
     async jwt({ token, user }) {
-      const wideUser = user as User;
+      const wideUser = user as AuthUser;
       const currentEpochTime = getCurrentEpochTime();
       if (user) {
         token.refresh = wideUser.refresh;

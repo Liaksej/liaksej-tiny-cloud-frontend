@@ -2,7 +2,7 @@ import Link from "next/link";
 import UploadFile from "@/ui/dashboard/upload-file";
 import AcmeLogo from "../acme-logo";
 import { PowerIcon } from "@heroicons/react/24/outline";
-import { auth, signOut } from "@/auth.config";
+import { signOut } from "@/auth.config";
 import AdminLink from "@/ui/dashboard/admin-link";
 import { adminCheck } from "@/lib/data";
 

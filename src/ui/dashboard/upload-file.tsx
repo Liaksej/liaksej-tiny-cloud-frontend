@@ -34,6 +34,7 @@ export default function UploadFile() {
   const handleFormSubmit = async (formData: FormData) => {
     if (file) {
       formData.append("file", file);
+      formData.append("file_name", file.name);
       setIsModalOpen(false);
       await sendFileToServer(formData);
       setFile(undefined);

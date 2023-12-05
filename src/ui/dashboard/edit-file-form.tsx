@@ -3,13 +3,9 @@
 import { FileEdit } from "@/lib/definitions";
 import {
   PencilIcon,
-  CheckIcon,
-  ClockIcon,
   ChatBubbleOvalLeftEllipsisIcon,
   LockClosedIcon,
   LockOpenIcon,
-  CurrencyDollarIcon,
-  UserCircleIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { Button } from "@/ui/button";

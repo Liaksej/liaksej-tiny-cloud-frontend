@@ -65,6 +65,7 @@ export async function deleteFile(formData: FormData) {
     revalidatePath("/dashboard");
     return { message: "Deleted File." };
   } catch (e) {
+    revalidatePath("/dashboard");
     return { message: "Fetch Error: Failed to Delete File." };
   }
 }
@@ -108,4 +109,33 @@ export async function updateFile(prevState: State, formData: FormData) {
   }
   revalidatePath("/dashboard");
   redirect("/dashboard");
+}
+
+export async function updateAdminStatus(formData: FormData) {
+  try {
+    const session = await auth();
+    if (!session) {
+      console.error("No session");
+    }
+    const response = await fetch(
+      `http://127.0.0.1:8000/api/auth/users/${formData.get("username")}/`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session?.user?.access}`,
+        },
+        body: JSON.stringify({
+          is_superuser: `${formData.get("is_superuser") === "false"}`,
+        }),
+      },
+    );
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    revalidatePath("/dashboard");
+    return { message: "Deleted File." };
+  } catch (e) {
+    return { message: "Fetch Error: Failed to Delete File." };
+  }
 }

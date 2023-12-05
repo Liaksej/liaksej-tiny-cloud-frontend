@@ -1,6 +1,5 @@
 import { unstable_noStore as noStore } from "next/cache";
 import { auth } from "@/auth.config";
-import { Session } from "next-auth";
 
 // export async function fetchLatestInvoices() {
 //   noStore();
@@ -25,15 +24,19 @@ import { Session } from "next-auth";
 
 const ITEMS_PER_PAGE = 10;
 
-export async function fetchFilteredFiles(query: string, currentPage: number) {
+export async function fetchTableData(
+  query: string,
+  currentPage: number,
+  type: string | number,
+) {
   noStore();
   const session = await auth();
 
   try {
-    const filesResponse = await fetch(
-      `http://localhost:8000/api/cloud/files/${
-        currentPage > 1 ? `?page=${currentPage}` : ""
-      }`,
+    const response = await fetch(
+      `${process.env.NEXTAUTH_BACKEND_URL}${
+        type === "users" ? "auth/users/" : "cloud/files"
+      }${currentPage > 1 ? `?page=${currentPage}` : ""}`,
       {
         headers: {
           ContentType: "application/json",
@@ -41,13 +44,14 @@ export async function fetchFilteredFiles(query: string, currentPage: number) {
         },
       },
     );
-    if (!filesResponse.ok) {
-      throw new Error("Failed to fetch invoices.");
+    if (!response.ok) {
+      throw new Error("Failed to fetch table data.");
     }
-    return await filesResponse.json();
+
+    return await response.json();
   } catch (error) {
     console.error("Fetch Error:", error);
-    throw new Error("Failed to fetch files.");
+    throw new Error("Failed to fetch table data.");
   }
 }
 
@@ -56,7 +60,7 @@ export async function fetchFilesPages(query: string | number) {
   const session = await auth();
   try {
     const countResponse = await fetch(
-      `http://127.0.0.1:8000/api/cloud/files/`,
+      `${process.env.NEXTAUTH_BACKEND_URL}cloud/files/`,
       {
         headers: {
           ContentType: "application/json",
@@ -119,11 +123,7 @@ export async function adminCheck() {
     );
     if (response.ok) {
       const data = await response.json();
-      if (data.is_superuser) {
-        return true;
-      } else {
-        return false;
-      }
+      return !!data.is_superuser;
     } else {
       return false;
     }

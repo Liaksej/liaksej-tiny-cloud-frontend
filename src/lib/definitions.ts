@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export interface User {
+export interface AuthUser {
   id: string;
   name?: string | null;
   email?: string | null;
@@ -69,3 +69,18 @@ export type State = {
     | {};
   message?: string | null;
 };
+
+export interface User {
+  id: number;
+  username: string;
+  first_name: string | undefined;
+  last_name: string | undefined;
+  email: string;
+  is_superuser: boolean;
+  date_joined: Date;
+  last_login: Date;
+  count_files: number;
+  total_space: {
+    size__sum: number;
+  };
+}

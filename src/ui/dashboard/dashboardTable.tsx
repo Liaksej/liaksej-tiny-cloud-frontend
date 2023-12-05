@@ -1,16 +1,25 @@
 import { UpdateInvoice, DeleteFile } from "@/ui/dashboard/buttons";
 import { formatDateToLocal, formatSize } from "@/lib/utils";
-import { fetchFilteredFiles } from "@/lib/data";
+import { fetchTableData } from "@/lib/data";
 import { File } from "@/lib/definitions";
+import { redirect } from "next/navigation";
 
-export default async function InvoicesTable({
+export default async function DashboardTable({
   query,
   currentPage,
 }: {
   query: string;
   currentPage: number;
 }) {
-  const files = await fetchFilteredFiles(query, currentPage);
+  const files = await fetchTableData(query, currentPage, "files");
+
+  if (!files) {
+    if (currentPage > 2) {
+      redirect(`/dashboard?page=${currentPage - 1}`);
+    } else {
+      redirect("/dashboard");
+    }
+  }
 
   if (files.count === 0) {
     return (
