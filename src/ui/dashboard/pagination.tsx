@@ -19,7 +19,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
   };
   const allPages = generatePagination(currentPage, totalPages);
 
-  if (totalPages === 1) {
+  if (totalPages <= 1) {
     return null;
   }
 

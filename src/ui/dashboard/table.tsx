@@ -12,6 +12,16 @@ export default async function InvoicesTable({
 }) {
   const files = await fetchFilteredFiles(query, currentPage);
 
+  if (files.count === 0) {
+    return (
+      <div className="flex min-h-fit justify-center items-center pt-6 text-gray-400">
+        <h1 className="text-ml font-normal">
+          There is no files yet. Add some.
+        </h1>
+      </div>
+    );
+  }
+
   return (
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
