@@ -2,6 +2,7 @@ import NextAuth, { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
 import { User } from "@/lib/definitions";
+import { adminCheck } from "@/lib/data";
 
 // These two values should be a bit less than actual token lifetimes
 const BACKEND_ACCESS_TOKEN_LIFETIME = 45 * 60; // 45 minutes
@@ -41,7 +42,7 @@ export const authConfig = {
   session: {
     maxAge: BACKEND_REFRESH_TOKEN_LIFETIME,
   },
-  debug: false,
+  debug: true,
   providers: [
     Credentials({
       async authorize(credentials) {
@@ -125,8 +126,11 @@ export const authConfig = {
       const isLoggedIn = !!auth?.user;
       const isOnDashboard = nextUrl.pathname.startsWith("/dashboard");
       const isOnAdmin = nextUrl.pathname.startsWith("/admin");
-      const isOnStatic = nextUrl.pathname.startsWith("/static");
-      if (isOnDashboard || isOnAdmin || isOnStatic) {
+      if (isOnAdmin) {
+        return adminCheck();
+      }
+      // const isOnStatic = nextUrl.pathname.startsWith("/static");
+      if (isOnDashboard) {
         if (isLoggedIn) return true;
         return false;
       } else if (isLoggedIn) {

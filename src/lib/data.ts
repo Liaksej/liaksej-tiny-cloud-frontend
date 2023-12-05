@@ -1,5 +1,6 @@
 import { unstable_noStore as noStore } from "next/cache";
 import { auth } from "@/auth.config";
+import { Session } from "next-auth";
 
 // export async function fetchLatestInvoices() {
 //   noStore();
@@ -96,6 +97,36 @@ export async function fetchFile(id: string) {
     }
 
     return await countResponse.json();
+  } catch (error) {
+    console.error("Fetch Error:", error);
+  }
+}
+
+export async function adminCheck() {
+  noStore();
+
+  const session = await auth();
+
+  try {
+    const response = await fetch(
+      `${process.env.NEXTAUTH_BACKEND_URL}auth/users/${session?.user?.name}/`,
+      {
+        headers: {
+          ContentType: "application/json",
+          Authorization: `Bearer ${session?.user?.access}`,
+        },
+      },
+    );
+    if (response.ok) {
+      const data = await response.json();
+      if (data.is_superuser) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   } catch (error) {
     console.error("Fetch Error:", error);
   }

@@ -6,10 +6,13 @@ import { createPortal, useFormStatus } from "react-dom";
 import ModalUpload from "@/ui/dashboard/modal-upload";
 import { sendFileToServer } from "@/lib/actions";
 import { clsx } from "clsx";
+import { usePathname } from "next/navigation";
 
 export default function UploadFile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [file, setFile] = useState<File | undefined>(undefined);
+
+  const pathname = usePathname();
 
   function handlerFileChange(event: ChangeEvent<HTMLInputElement>) {
     if (event.target.files) {
@@ -36,6 +39,10 @@ export default function UploadFile() {
       setFile(undefined);
     }
   };
+
+  if (pathname === "/admin") {
+    return null;
+  }
 
   return (
     <>

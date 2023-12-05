@@ -2,11 +2,12 @@ import Link from "next/link";
 import UploadFile from "@/ui/dashboard/upload-file";
 import AcmeLogo from "../acme-logo";
 import { PowerIcon } from "@heroicons/react/24/outline";
-import { signOut } from "@/auth.config";
-import { clsx } from "clsx";
+import { auth, signOut } from "@/auth.config";
 import AdminLink from "@/ui/dashboard/admin-link";
+import { adminCheck } from "@/lib/data";
 
-export default function SideNav() {
+export default async function SideNav() {
+  const admin = await adminCheck();
   return (
     <div className="flex h-full flex-col px-3 py-4 md:px-2">
       <Link
@@ -20,7 +21,7 @@ export default function SideNav() {
       <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
         <UploadFile />
         <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div>
-        <AdminLink />
+        {admin && <AdminLink />}
         <form
           className="flex h-[48px]"
           action={async () => {
