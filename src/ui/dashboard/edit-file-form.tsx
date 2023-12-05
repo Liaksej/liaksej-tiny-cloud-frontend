@@ -109,7 +109,7 @@ export default function EdirFileForm({ file }: { file: FileEdit }) {
                   htmlFor="locked"
                   className="ml-2 flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-300"
                 >
-                  Locked <LockClosedIcon className="h-4 w-4" />
+                  Private <LockClosedIcon className="h-4 w-4" />
                 </label>
               </div>
               <div className="flex items-center">
