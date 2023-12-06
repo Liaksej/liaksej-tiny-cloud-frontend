@@ -153,7 +153,7 @@ export async function updateAdminStatus(formData: FormData) {
           Authorization: `Bearer ${session?.user?.access}`,
         },
         body: JSON.stringify({
-          is_superuser: `${formData.get("is_superuser") === "false"}`,
+          is_staff: `${formData.get("is_staff") === "false"}`,
         }),
       },
     );

@@ -76,7 +76,7 @@ export interface User {
   first_name: string | undefined;
   last_name: string | undefined;
   email: string;
-  is_superuser: boolean;
+  is_staff: boolean;
   date_joined: Date;
   last_login: Date;
   count_files: number;

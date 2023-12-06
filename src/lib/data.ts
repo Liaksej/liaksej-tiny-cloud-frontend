@@ -123,7 +123,7 @@ export async function adminCheck() {
     );
     if (response.ok) {
       const data = await response.json();
-      return !!data.is_superuser;
+      return !!data.is_staff;
     } else {
       return false;
     }

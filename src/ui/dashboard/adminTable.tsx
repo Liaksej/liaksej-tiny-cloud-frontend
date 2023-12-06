@@ -133,7 +133,7 @@ export default async function AdminTable({
                       <UpdateAdminStatus
                         username={user.username}
                         authuser={session?.user?.name as string}
-                        admin={user.is_superuser}
+                        admin={user.is_staff}
                       />
                     </div>
                   </td>
@@ -142,7 +142,7 @@ export default async function AdminTable({
                       <DeleteItem
                         id={user.username}
                         type="user"
-                        admin={user.is_superuser}
+                        admin={user.is_staff}
                         authuser={session?.user?.name as string}
                       />
                     </div>

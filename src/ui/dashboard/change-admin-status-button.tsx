@@ -24,7 +24,7 @@ export default function UpdateAdminStatus({
       <input
         className={clsx("rounded", username === authuser && "text-gray-400")}
         type="checkbox"
-        name="is_superuser"
+        name="is_staff"
         defaultChecked={admin}
         value={`${admin}`}
         disabled={username === authuser}
