@@ -70,6 +70,33 @@ export async function deleteFile(formData: FormData) {
   }
 }
 
+export async function deleteUser(formData: FormData) {
+  try {
+    const session = await auth();
+    if (!session) {
+      console.error("No session");
+    }
+    const response = await fetch(
+      `${process.env.NEXTAUTH_BACKEND_URL}auth/users/${formData.get("id")}`,
+      {
+        method: "DELETE",
+        headers: {
+          ContentType: "application/json",
+          Authorization: `Bearer ${session?.user?.access}`,
+        },
+      },
+    );
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    revalidatePath("/dashboard");
+    return { message: "User Deleted." };
+  } catch (e) {
+    revalidatePath("/dashboard");
+    return { message: "Fetch Error: Failed to Delete User." };
+  }
+}
+
 export async function updateFile(prevState: State, formData: FormData) {
   const session = await auth();
 

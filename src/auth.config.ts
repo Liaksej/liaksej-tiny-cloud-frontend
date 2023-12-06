@@ -42,7 +42,7 @@ export const authConfig = {
   session: {
     maxAge: BACKEND_REFRESH_TOKEN_LIFETIME,
   },
-  debug: true,
+  debug: false,
   providers: [
     Credentials({
       async authorize(credentials) {

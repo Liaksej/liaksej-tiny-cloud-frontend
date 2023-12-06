@@ -1,4 +1,4 @@
-import { UpdateInvoice, DeleteFile } from "@/ui/dashboard/buttons";
+import { UpdateInvoice, DeleteItem } from "@/ui/dashboard/buttons";
 import { formatDateToLocal, formatSize } from "@/lib/utils";
 import { fetchTableData } from "@/lib/data";
 import { File } from "@/lib/definitions";
@@ -58,7 +58,7 @@ export default async function DashboardTable({
                   </div>
                   <div className="flex justify-end gap-2">
                     <UpdateInvoice id={file.id} />
-                    <DeleteFile id={file.id} />
+                    <DeleteItem id={file.id} type="file" />
                   </div>
                 </div>
               </div>
@@ -119,7 +119,7 @@ export default async function DashboardTable({
                   <td className="whitespace-nowrap py-3 pr-3">
                     <div className="flex justify-end gap-3">
                       <UpdateInvoice id={file.id} />
-                      <DeleteFile id={file.id} />
+                      <DeleteItem id={file.id} type="file" />
                     </div>
                   </td>
                 </tr>

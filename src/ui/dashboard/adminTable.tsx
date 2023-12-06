@@ -1,4 +1,4 @@
-import { DeleteFile } from "@/ui/dashboard/buttons";
+import { DeleteItem } from "@/ui/dashboard/buttons";
 import { formatDateToLocal, formatSize } from "@/lib/utils";
 import { fetchTableData } from "@/lib/data";
 import { User } from "@/lib/definitions";
@@ -59,7 +59,7 @@ export default async function AdminTable({
                     <p>{formatDateToLocal(user.last_login)}</p>
                   </div>
                   <div className="flex justify-end gap-2">
-                    <DeleteFile id={user.id} />
+                    <DeleteItem id={user.username} type="user" />
                   </div>
                 </div>
               </div>
@@ -139,7 +139,12 @@ export default async function AdminTable({
                   </td>
                   <td className="whitespace-nowrap pl-6 pr-1">
                     <div className="flex">
-                      <DeleteFile id={user.id} />
+                      <DeleteItem
+                        id={user.username}
+                        type="user"
+                        admin={user.is_superuser}
+                        authuser={session?.user?.name as string}
+                      />
                     </div>
                   </td>
                 </tr>
