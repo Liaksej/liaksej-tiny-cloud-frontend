@@ -13,14 +13,6 @@ export default async function DashboardTable({
 }) {
   const files = await fetchTableData(query, currentPage, "files");
 
-  if (!files) {
-    if (currentPage > 2) {
-      redirect(`/dashboard?page=${currentPage - 1}`);
-    } else {
-      redirect("/dashboard");
-    }
-  }
-
   if (files.count === 0) {
     return (
       <div className="flex min-h-fit justify-center items-center pt-6 text-gray-400">
@@ -29,6 +21,14 @@ export default async function DashboardTable({
         </h1>
       </div>
     );
+  }
+
+  if (!files) {
+    if (currentPage > 2) {
+      redirect(`/dashboard?page=${currentPage - 1}`);
+    } else {
+      redirect("/dashboard");
+    }
   }
 
   return (

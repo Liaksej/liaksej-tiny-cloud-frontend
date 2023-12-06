@@ -35,7 +35,7 @@ export async function fetchTableData(
   try {
     const response = await fetch(
       `${process.env.NEXTAUTH_BACKEND_URL}${
-        type === "users" ? "auth/users/" : "cloud/files"
+        type === "users" ? "auth/users/" : "cloud/files/"
       }${currentPage > 1 ? `?page=${currentPage}` : ""}`,
       {
         headers: {
