@@ -1,9 +1,10 @@
 "use server";
 
-import { signIn, auth } from "@/auth.config";
+import { auth, signIn } from "@/auth.config";
 import { revalidatePath } from "next/cache";
 import { FileEditSchema, State } from "@/lib/definitions";
 import { redirect } from "next/navigation";
+import { z } from "zod";
 
 export async function authenticate(
   prevState: string | undefined,
@@ -165,4 +166,83 @@ export async function updateAdminStatus(formData: FormData) {
   } catch (e) {
     return { message: "Fetch Error: Failed to Delete File." };
   }
+}
+
+export async function registrate(
+  prevState: string | undefined,
+  formData: FormData,
+) {
+  const credentials = {
+    email: formData.get("email"),
+    username: formData.get("username"),
+    password1: formData.get("password1"),
+    password2: formData.get("password2"),
+    first_name: formData.get("first_name"),
+    last_name: formData.get("last_name"),
+  };
+
+  const credentialsSchema = z
+    .object({
+      email: z.string().email(),
+      username: z
+        .string()
+        .min(4)
+        .max(20, {
+          message: "Username must be between 4 and 20 characters",
+        })
+        .regex(/^[a-zA-Z][a-zA-Z0-9]*$/, {
+          message:
+            "Username must start with a letter and contain only letters and numbers",
+        }),
+      password1: z
+        .string()
+        .min(6)
+        .regex(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, {
+          message:
+            "Password must contain at least one uppercase letter, one number, and one special character",
+        }),
+      password2: z
+        .string()
+        .min(6)
+        .refine((val) => val === credentials.password1, {
+          message: "Passwords do not match",
+          path: ["password2"],
+        }),
+      first_name: z.string().min(1),
+      last_name: z.string().min(1),
+    })
+    .safeParse(credentials);
+
+  if (!credentialsSchema.success) {
+    return {
+      errors: credentialsSchema.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed Registration.",
+    };
+  }
+
+  try {
+    const request = await fetch(
+      `${process.env.NEXTAUTH_BACKEND_URL}auth/register/`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.get("email"),
+          username: formData.get("username"),
+          password1: formData.get("password1"),
+          password2: formData.get("password2"),
+          first_name: formData.get("first_name"),
+          last_name: formData.get("last_name"),
+        }),
+      },
+    );
+  } catch (error) {
+    if ((error as Error).message.includes("CredentialsSignin")) {
+      return "CredentialSignin";
+    }
+    throw error;
+  }
+  return;
 }
