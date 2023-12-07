@@ -105,7 +105,7 @@ export async function updateFile(prevState: State, formData: FormData) {
     id: formData.get("id"),
     original_name: formData.get("original_name"),
     comment: formData.get("comment"),
-    public_url: formData.get("public_url"),
+    // public_url: formData.get("public_url"),
   });
 
   if (!validateFields.success) {
@@ -115,25 +115,25 @@ export async function updateFile(prevState: State, formData: FormData) {
     };
   }
 
-  const { id, original_name, comment, public_url } = validateFields.data;
+  const { id, original_name, comment } = validateFields.data;
 
   try {
     const response = await fetch(
-      `http://127.0.0.1:8000/api/cloud/files/${id}`,
+      `${process.env.NEXTAUTH_BACKEND_URL}cloud/files/${id}/`,
       {
         method: "PATCH",
         headers: {
-          ContentType: "application/json",
+          "Content-Type": "application/json",
           Authorization: `Bearer ${session?.user?.access}`,
         },
-        body: JSON.stringify({ original_name, comment, public_url }),
+        body: JSON.stringify(validateFields.data),
       },
     );
     if (!response.ok) {
       throw new Error(response.statusText);
     }
   } catch (e) {
-    return { message: "Database Error: Failed to Update Invoice." };
+    return { message: "Fetch Error: Failed to Save Changes." };
   }
   revalidatePath("/dashboard");
   redirect("/dashboard");

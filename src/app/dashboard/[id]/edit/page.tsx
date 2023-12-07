@@ -15,9 +15,9 @@ export default async function Page({ params }: { params: { id: string } }) {
     <main>
       <Breadcrumbs
         breadcrumbs={[
-          { label: "Uploaded files", href: "/dashboard" },
+          { label: "Edited file", href: "/dashboard" },
           {
-            label: `Edit file – ${file.original_name}`,
+            label: `${file.original_name}`,
             href: `/dashboard/${id}/edit`,
             active: true,
           },
