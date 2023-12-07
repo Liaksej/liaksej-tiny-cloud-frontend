@@ -43,6 +43,7 @@ export interface File {
   date_created: Date;
   date_downloaded: Date;
   user: string;
+  public_url: string | null;
 }
 
 export interface FileEdit {
@@ -56,7 +57,7 @@ export const FileEditSchema = z.object({
   id: z.string().uuid(),
   original_name: z.string(),
   comment: z.string(),
-  public_url: z.string().optional(),
+  public: z.boolean(),
 });
 
 export type State = {

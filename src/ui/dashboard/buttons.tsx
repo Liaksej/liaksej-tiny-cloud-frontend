@@ -1,7 +1,11 @@
-import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
+import {
+  PencilIcon,
+  ClipboardDocumentIcon,
+  TrashIcon,
+} from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { deleteFile, deleteUser } from "@/lib/actions";
-import { clsx } from "clsx";
+import clsx from "clsx";
 
 export function UpdateInvoice({ id }: { id: string }) {
   return (

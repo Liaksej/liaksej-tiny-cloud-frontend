@@ -87,10 +87,7 @@ export default function EdirFileForm({ file }: { file: FileEdit }) {
 
         {/* Public URL */}
         <div>
-          <label
-            htmlFor="public_url"
-            className="mb-2 block text-sm font-medium"
-          >
+          <label htmlFor="public" className="mb-2 block text-sm font-medium">
             Locked / Public
           </label>
           <div className="rounded-md border border-gray-200 bg-white px-[14px] py-3">
@@ -98,11 +95,11 @@ export default function EdirFileForm({ file }: { file: FileEdit }) {
               <div className="flex items-center">
                 <input
                   id="locked"
-                  name="public_url"
+                  name="public"
                   type="radio"
-                  value="locked"
+                  value="False"
                   aria-describedby="public_url-error"
-                  defaultChecked={file.public_url === ""}
+                  defaultChecked={file.public_url === null}
                   className="h-4 w-4 border-gray-300 bg-gray-100 text-gray-600 focus:ring-2 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-gray-600"
                 />
                 <label
@@ -115,9 +112,9 @@ export default function EdirFileForm({ file }: { file: FileEdit }) {
               <div className="flex items-center">
                 <input
                   id="pubclic"
-                  name="status"
+                  name="public"
                   type="radio"
-                  value="pubclic"
+                  value="True"
                   aria-describedby="public_url-error"
                   defaultChecked={file.public_url !== null}
                   className="h-4 w-4 border-gray-300 bg-gray-100 text-gray-600 focus:ring-2 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-gray-600"
@@ -135,8 +132,8 @@ export default function EdirFileForm({ file }: { file: FileEdit }) {
                   aria-live="polite"
                   className="mt-2 text-sm text-red-500"
                 >
-                  {state.errors?.public_url &&
-                    state.errors.public_url.map((error: string) => (
+                  {state.errors?.public &&
+                    state.errors.public.map((error: string) => (
                       <p key={error}>{error}</p>
                     ))}
                 </div>

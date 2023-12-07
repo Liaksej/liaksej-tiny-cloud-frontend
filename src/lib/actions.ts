@@ -105,7 +105,7 @@ export async function updateFile(prevState: State, formData: FormData) {
     id: formData.get("id"),
     original_name: formData.get("original_name"),
     comment: formData.get("comment"),
-    // public_url: formData.get("public_url"),
+    public: formData.get("public") === "True",
   });
 
   if (!validateFields.success) {
@@ -115,11 +115,9 @@ export async function updateFile(prevState: State, formData: FormData) {
     };
   }
 
-  const { id, original_name, comment } = validateFields.data;
-
   try {
     const response = await fetch(
-      `${process.env.NEXTAUTH_BACKEND_URL}cloud/files/${id}/`,
+      `${process.env.NEXTAUTH_BACKEND_URL}cloud/files/${validateFields.data.id}/`,
       {
         method: "PATCH",
         headers: {

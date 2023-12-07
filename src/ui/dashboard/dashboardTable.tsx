@@ -4,6 +4,7 @@ import { fetchTableData } from "@/lib/data";
 import { File } from "@/lib/definitions";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { CopyLinkButton } from "@/ui/dashboard/copy-link-button";
 
 export default async function DashboardTable({
   query,
@@ -83,15 +84,15 @@ export default async function DashboardTable({
                 <th scope="col" className="px-3 py-5 font-medium">
                   Size
                 </th>
-                <th scope="col" className="px-3 py-5 font-medium">
+                <th scope="col" className="py-5 font-medium">
                   Created
                 </th>
-                <th scope="col" className="px-3 py-5 font-medium">
+                <th scope="col" className="py-5 font-medium">
                   Downloaded
                 </th>
-                {/*<th scope="col" className="px-3 py-5 font-medium">*/}
-                {/*  Status*/}
-                {/*</th>*/}
+                <th scope="col" className="px-3 py-5 font-medium">
+                  Public Link
+                </th>
                 <th scope="col" className="relative py-3 pl-6 pr-3">
                   <span className="sr-only">Edit</span>
                 </th>
@@ -126,9 +127,9 @@ export default async function DashboardTable({
                   <td className="whitespace-nowrap py-3">
                     {formatDateToLocal(file.date_downloaded)}
                   </td>
-                  {/*<td className="whitespace-nowrap px-3 py-3">*/}
-                  {/*  <InvoiceStatus status={invoice.status} />*/}
-                  {/*</td>*/}
+                  <td className="whitespace-nowrap px-3 py-3">
+                    <CopyLinkButton public_url={file.public_url} />
+                  </td>
                   <td className="whitespace-nowrap py-3 pr-3">
                     <div className="flex justify-end gap-3">
                       <UpdateInvoice id={file.id} />
