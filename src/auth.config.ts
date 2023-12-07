@@ -127,7 +127,8 @@ export const authConfig = {
       const isLoggedIn = !!auth?.user;
       const isOnDashboard = nextUrl.pathname.startsWith("/dashboard");
       const isOnAdmin = nextUrl.pathname.startsWith("/admin");
-      const isDownload = nextUrl.pathname.startsWith("/download");
+      const isDownload = nextUrl.pathname.startsWith("/download/");
+      const isPublic = nextUrl.pathname.startsWith("/public/");
       if (isSignupPage) {
         if (!isLoggedIn) return true;
         return Response.redirect(new URL("/dashboard", nextUrl));
@@ -139,6 +140,9 @@ export const authConfig = {
       if (isDownload) {
         if (isLoggedIn) return true;
         return Response.redirect(new URL("/login", nextUrl));
+      }
+      if (isPublic) {
+        return true;
       }
       if (isOnDashboard) {
         if (isLoggedIn) return true;
