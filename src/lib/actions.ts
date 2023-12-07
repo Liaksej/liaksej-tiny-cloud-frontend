@@ -5,16 +5,22 @@ import { revalidatePath } from "next/cache";
 import { FileEditSchema, State } from "@/lib/definitions";
 import { redirect } from "next/navigation";
 import { z } from "zod";
+import { AuthError } from "next-auth";
 
 export async function authenticate(
   prevState: string | undefined,
   formData: FormData,
 ) {
   try {
-    await signIn("credentials", Object.fromEntries(formData));
+    await signIn("credentials", formData);
   } catch (error) {
-    if ((error as Error).message.includes("CredentialsSignin")) {
-      return "CredentialSignin";
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case "CredentialsSignin":
+          return "Invalid credentials.";
+        default:
+          return "Something went wrong.";
+      }
     }
     throw error;
   }

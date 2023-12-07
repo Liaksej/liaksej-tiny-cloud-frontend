@@ -26,7 +26,7 @@ async function getUser(email: string, password: string) {
   if (response.ok) {
     return await response.json();
   } else {
-    console.log("Error logging in" + response.status);
+    console.error("Error logging in" + response.status);
     return null;
   }
 }
