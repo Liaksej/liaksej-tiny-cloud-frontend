@@ -123,9 +123,13 @@ export const authConfig = {
       return token;
     },
     async authorized({ auth, request: { nextUrl } }) {
+      const isSignupPage = nextUrl.pathname.startsWith("/signup");
       const isLoggedIn = !!auth?.user;
       const isOnDashboard = nextUrl.pathname.startsWith("/dashboard");
       const isOnAdmin = nextUrl.pathname.startsWith("/admin");
+      if (isSignupPage) {
+        return true;
+      }
       if (isOnAdmin) {
         return adminCheck();
       }
