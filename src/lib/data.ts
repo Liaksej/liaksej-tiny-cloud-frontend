@@ -78,7 +78,7 @@ export async function fetchFilesPages(query: string | number) {
     return Math.ceil(Number(count) / ITEMS_PER_PAGE);
   } catch (error) {
     console.error("Fetch Error:", error);
-    throw new Error("Failed to fetch total number of files.");
+    throw new Error("Failed to fetch total number of files!!!!!.");
   }
 }
 

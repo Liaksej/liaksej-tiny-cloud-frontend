@@ -1,19 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // async rewrites() {
-  //   return {
-  //     afterFiles: [
-  //       {
-  //         source: "/admin/:path*",
-  //         destination: "http://127.0.0.1:8000/admin/:path*/",
-  //       },
-  //       {
-  //         source: "/static/:path*",
-  //         destination: "http://localhost:8000/static/:path*/",
-  //       },
-  //     ],
-  //   };
-  // },
+  async rewrites() {
+    return {
+      afterFiles: [
+        {
+          source: "/download/:path*",
+          destination: `${process.env.NEXTAUTH_BACKEND_URL}cloud/download/:path*/`,
+        },
+        // {
+        //   source: "/static/:path*",
+        //   destination: "http://localhost:8000/static/:path*/",
+        // },
+      ],
+    };
+  },
 };
 
 module.exports = nextConfig;

@@ -3,6 +3,7 @@ import { formatDateToLocal, formatSize } from "@/lib/utils";
 import { fetchTableData } from "@/lib/data";
 import { File } from "@/lib/definitions";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 export default async function DashboardTable({
   query,
@@ -13,6 +14,14 @@ export default async function DashboardTable({
 }) {
   const files = await fetchTableData(query, currentPage, "files");
 
+  if (!files) {
+    if (currentPage > 2) {
+      redirect(`/dashboard?page=${currentPage - 1}`);
+    } else {
+      redirect("/dashboard");
+    }
+  }
+
   if (files.count === 0) {
     return (
       <div className="flex min-h-fit justify-center items-center pt-6 text-gray-400">
@@ -21,14 +30,6 @@ export default async function DashboardTable({
         </h1>
       </div>
     );
-  }
-
-  if (!files) {
-    if (currentPage > 2) {
-      redirect(`/dashboard?page=${currentPage - 1}`);
-    } else {
-      redirect("/dashboard");
-    }
   }
 
   return (
@@ -42,7 +43,13 @@ export default async function DashboardTable({
                 className="mb-2 w-full rounded-md bg-white p-4"
               >
                 <div className="flex items-center justify-between border-b pb-4">
-                  <p className="font-bold">{file["original_name"]}</p>
+                  <Link
+                    href={`/download/${file.id}`}
+                    className="text-blue-600 underline"
+                    target="_blank"
+                  >
+                    <p className="font-bold">{file.original_name}</p>
+                  </Link>
                   <p className="text-sm text-gray-500">{file.comment}</p>
                   {/*<InvoiceStatus status={file.status} />*/}
                 </div>
@@ -98,7 +105,13 @@ export default async function DashboardTable({
                 >
                   <td className="whitespace-nowrap py-3 pl-6">
                     <div className="flex items-center gap-3 font-medium">
-                      <p>{file.original_name}</p>
+                      <Link
+                        className="text-blue-600 underline"
+                        href={`/download/${file.id}`}
+                        target="_blank"
+                      >
+                        <p>{file.original_name}</p>
+                      </Link>
                     </div>
                   </td>
                   <td className="whitespace-nowrap px-3 pr-14 py-3">
