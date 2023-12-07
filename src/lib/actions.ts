@@ -172,14 +172,7 @@ export async function registrate(
   prevState: string | undefined,
   formData: FormData,
 ) {
-  const credentials = {
-    email: formData.get("email"),
-    username: formData.get("username"),
-    password1: formData.get("password1"),
-    password2: formData.get("password2"),
-    first_name: formData.get("first_name"),
-    last_name: formData.get("last_name"),
-  };
+  const credentials = Object.fromEntries(formData);
 
   const credentialsSchema = z
     .object({
@@ -221,26 +214,30 @@ export async function registrate(
   }
 
   try {
-    const request = await fetch(
+    const response = await fetch(
       `${process.env.NEXTAUTH_BACKEND_URL}auth/register/`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          email: formData.get("email"),
-          username: formData.get("username"),
-          password1: formData.get("password1"),
-          password2: formData.get("password2"),
-          first_name: formData.get("first_name"),
-          last_name: formData.get("last_name"),
-        }),
+        body: JSON.stringify(credentials),
       },
     );
+
+    if (response.status === 400) {
+      return await response.json();
+    }
+
+    if (response.ok) {
+      await signIn("credentials", {
+        email: credentials.email,
+        password: credentials.password1,
+      });
+    }
   } catch (error) {
     if ((error as Error).message.includes("CredentialsSignin")) {
-      return "CredentialSignin";
+      return "CredentialRegister";
     }
     throw error;
   }

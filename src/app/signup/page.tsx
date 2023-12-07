@@ -1,5 +1,5 @@
 import AcmeLogo from "@/ui/acme-logo";
-import LoginForm from "@/ui/login-form";
+import RegistrationForm from "@/ui/dashboard/registration-form";
 
 export default function RegistrationPage() {
   return (
@@ -10,7 +10,7 @@ export default function RegistrationPage() {
             <AcmeLogo />
           </div>
         </div>
-        <LoginForm />
+        <RegistrationForm />
       </div>
     </main>
   );

@@ -128,7 +128,8 @@ export const authConfig = {
       const isOnDashboard = nextUrl.pathname.startsWith("/dashboard");
       const isOnAdmin = nextUrl.pathname.startsWith("/admin");
       if (isSignupPage) {
-        return true;
+        if (!isLoggedIn) return true;
+        return Response.redirect(new URL("/dashboard", nextUrl));
       }
       if (isOnAdmin) {
         return adminCheck();
