@@ -3,7 +3,7 @@
 import {
   ArrowUpTrayIcon,
   AtSymbolIcon,
-  ExclamationCircleIcon,
+  DocumentIcon,
   KeyIcon,
 } from "@heroicons/react/24/outline";
 import { ChangeEvent, useState, MouseEvent } from "react";
@@ -60,7 +60,7 @@ export default function UploadFile() {
           <ModalUpload>
             <form
               action={handleFormSubmit}
-              className="space-y-3 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+              className="space-y-3 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-[25%]"
             >
               <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8 border border-gray-400 shadow-2xl">
                 <h1 className={`${lusitana.className} mb-3 text-2xl`}>
@@ -76,12 +76,12 @@ export default function UploadFile() {
                     </label>
                     <div className="relative">
                       <p
-                        className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+                        className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 pr-3.5 text-sm outline-2 placeholder:text-gray-500"
                         id="email"
                       >
                         {file?.name}
                       </p>
-                      <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+                      <DocumentIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                     </div>
                   </div>
                   <div className="mt-4">
@@ -93,7 +93,7 @@ export default function UploadFile() {
                     </label>
                     <div className="relative">
                       <textarea
-                        className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+                        className="peer block w-full rounded-md border border-gray-200 py-[9px] text-sm outline-2 placeholder:text-gray-500"
                         id="password"
                         name="password"
                         placeholder="Enter comment..."
@@ -101,7 +101,7 @@ export default function UploadFile() {
                         required
                         minLength={6}
                       />
-                      <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+                      {/*<KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />*/}
                     </div>
                   </div>
                 </div>
@@ -173,7 +173,10 @@ export function CancelButton() {
   const { pending } = useFormStatus();
 
   return (
-    <Button className="mt-4 w-full bg-gray-400" aria-disabled={pending}>
+    <Button
+      className="mt-4 w-full bg-gray-400 hover:bg-gray-300"
+      aria-disabled={pending}
+    >
       Cancel <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
     </Button>
   );
