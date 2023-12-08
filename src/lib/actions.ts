@@ -41,12 +41,18 @@ export async function sendFileToServer(formData: FormData) {
       body: formData,
     });
     if (response.ok) {
-      return revalidatePath("/dashboard");
+      revalidatePath("/dashboard");
+      return null;
     } else {
+      console.error("Upload fetch is failed");
+      revalidatePath("/dashboard");
       throw new Error(response.statusText);
     }
   } catch (error) {
     console.error(error);
+    console.error("Upload fetch is failed");
+    revalidatePath("/dashboard");
+    throw new Error("Upload fetch is failed.");
   }
 }
 

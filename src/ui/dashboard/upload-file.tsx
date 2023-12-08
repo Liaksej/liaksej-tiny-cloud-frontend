@@ -4,6 +4,7 @@ import {
   ArrowUpTrayIcon,
   AtSymbolIcon,
   DocumentIcon,
+  ExclamationCircleIcon,
   KeyIcon,
 } from "@heroicons/react/24/outline";
 import { ChangeEvent, useState, MouseEvent } from "react";
@@ -44,7 +45,6 @@ export default function UploadFile() {
       formData.append("file", file);
       formData.append("file_name", file.name);
       setIsModalOpen(false);
-      await sendFileToServer(formData);
       setFile(undefined);
     }
   };
