@@ -22,8 +22,8 @@ export default async function Page({
   const totalPages = await fetchFilesPages(query);
 
   return (
-    <main id="main">
-      <div className="w-full">
+    <main className="w-full">
+      <div>
         <div className="flex w-full items-center justify-between">
           <h1 className={`${lusitana.className} text-2xl`}>Uploaded files</h1>
         </div>

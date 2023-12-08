@@ -1,5 +1,5 @@
 import AcmeLogo from "@/ui/acme-logo";
-import RegistrationForm from "@/ui/dashboard/registration-form";
+import RegistrationForm from "@/ui/registration-form";
 
 export default function RegistrationPage() {
   return (

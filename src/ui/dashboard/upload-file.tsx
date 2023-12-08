@@ -1,12 +1,20 @@
 "use client";
 
-import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowUpTrayIcon,
+  AtSymbolIcon,
+  ExclamationCircleIcon,
+  KeyIcon,
+} from "@heroicons/react/24/outline";
 import { ChangeEvent, useState, MouseEvent } from "react";
 import { createPortal, useFormStatus } from "react-dom";
 import ModalUpload from "@/ui/dashboard/modal-upload";
 import { sendFileToServer } from "@/lib/actions";
 import { clsx } from "clsx";
 import { usePathname } from "next/navigation";
+import { lusitana } from "@/ui/fonts";
+import { Button } from "@/ui/button";
+import { ArrowRightIcon } from "@heroicons/react/20/solid";
 
 export default function UploadFile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -50,25 +58,67 @@ export default function UploadFile() {
       {isModalOpen &&
         createPortal(
           <ModalUpload>
-            <h1 className="font-bold pb-1">File for upload</h1>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mb-1 break-words truncate">
-              {file?.name}
-            </p>
-            <form action={handleFormSubmit}>
-              <textarea
-                className="min-h-[3rem] w-full border-4 dark:bg-gray-950"
-                placeholder="Write a message"
-                name="comment"
-              ></textarea>
-              <div className="flex justify-end gap-x-2">
-                <button
-                  className="mt-2 bg-red-600 hover:bg-red-700 text-white font-bold text-sm py-1 px-2 rounded"
-                  onClick={handleClose}
-                  type="button"
-                >
-                  Close
-                </button>
-                <Upload />
+            <form
+              action={handleFormSubmit}
+              className="space-y-3 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            >
+              <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8 border border-gray-400 shadow-2xl">
+                <h1 className={`${lusitana.className} mb-3 text-2xl`}>
+                  Upload Form
+                </h1>
+                <div className="w-full">
+                  <div>
+                    <label
+                      className="mb-3 mt-5 block text-xs font-medium text-gray-900"
+                      htmlFor="email"
+                    >
+                      Filename
+                    </label>
+                    <div className="relative">
+                      <p
+                        className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+                        id="email"
+                      >
+                        {file?.name}
+                      </p>
+                      <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+                    </div>
+                  </div>
+                  <div className="mt-4">
+                    <label
+                      className="mb-3 mt-5 block text-xs font-medium text-gray-900"
+                      htmlFor="password"
+                    >
+                      Comment
+                    </label>
+                    <div className="relative">
+                      <textarea
+                        className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+                        id="password"
+                        name="password"
+                        placeholder="Enter comment..."
+                        rows={3}
+                        required
+                        minLength={6}
+                      />
+                      <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+                    </div>
+                  </div>
+                </div>
+                <UploadButton />
+                <div onClick={handleClose}>
+                  <CancelButton />
+                </div>
+                {/*<div className="flex h-8 items-end space-x-1">*/}
+                {/*  {Boolean(errorMessage) && (*/}
+                {/*    <>*/}
+                {/*      <ExclamationCircleIcon className="h-5 w-5 text-red-500" />*/}
+                {/*      <p aria-live="polite" className="text-sm text-red-500">*/}
+                {/*        {errorMessage}*/}
+                {/*      </p>*/}
+                {/*    </>*/}
+                {/*  )}*/}
+                {/*</div>*/}
               </div>
             </form>
           </ModalUpload>,
@@ -106,5 +156,25 @@ function Upload() {
     >
       {pending ? "Loading" : "Upload"}
     </button>
+  );
+}
+
+export function UploadButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button className="mt-4 w-full" aria-disabled={pending}>
+      Upload <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+    </Button>
+  );
+}
+
+export function CancelButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button className="mt-4 w-full bg-gray-400" aria-disabled={pending}>
+      Cancel <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+    </Button>
   );
 }

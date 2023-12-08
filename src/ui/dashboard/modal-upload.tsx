@@ -12,5 +12,7 @@ interface ModalUploadInterface {
 }
 
 export default function ModalUpload({ children }: { children: ReactNode }) {
-  return <>{children}</>;
+  return (
+    <div className="w-full h-full absolute bg-gray-50/75 top-0">{children}</div>
+  );
 }
