@@ -9,11 +9,13 @@ import { CopyLinkButton } from "@/ui/dashboard/copy-link-button";
 export default async function DashboardTable({
   query,
   currentPage,
+  name,
 }: {
   query: string;
   currentPage: number;
+  name?: string;
 }) {
-  const files = await fetchTableData(query, currentPage, "files");
+  const files = await fetchTableData(query, currentPage, "files", name);
 
   if (!files) {
     if (currentPage > 2) {

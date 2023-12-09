@@ -1,40 +1,56 @@
+import { auth } from "@/auth.config";
 import { lusitana } from "@/ui/fonts";
 import { fetchFilesPages } from "@/lib/data";
 import Search from "@/ui/dashboard/search";
 import Pagination from "@/ui/dashboard/pagination";
 import { InvoicesTableSkeleton } from "@/ui/skeletons";
 import { Suspense } from "react";
-import AdminTable from "@/ui/dashboard/adminTable";
+import DashboardTable from "@/ui/dashboard/dashboardTable";
+import Breadcrumbs from "@/ui/dashboard/breadcrumbs";
 
-export default async function AdminPage({
+export default async function DashboardPage({
   searchParams,
+  params,
 }: {
   searchParams?: {
     query?: string;
     page?: string;
   };
+  params: {
+    name: string;
+  };
 }) {
+  const session = await auth();
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
 
-  const totalPages = await fetchFilesPages(query);
+  const totalPages = await fetchFilesPages(query, params.name);
 
   return (
-    <main id="main">
-      <div className="w-full">
-        <div className="flex w-full items-center justify-between">
-          <h1 className={`${lusitana.className} text-2xl text-orange-700`}>
-            Admin panel
-          </h1>
-        </div>
+    <main className="w-full">
+      <Breadcrumbs
+        breadcrumbs={[
+          { label: "Admin Panel", href: "/admin" },
+          {
+            label: `${params.name}`,
+            href: `/admin/${params.name}`,
+            active: true,
+          },
+        ]}
+      />
+      <div>
         <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
-          <Search placeholder="Search users..." />
+          <Search placeholder="Search invoices..." />
         </div>
         <Suspense
           key={query + currentPage}
           fallback={<InvoicesTableSkeleton />}
         >
-          <AdminTable query={query} currentPage={currentPage} />
+          <DashboardTable
+            query={query}
+            currentPage={currentPage}
+            name={params.name}
+          />
         </Suspense>
         <div className="mt-5 flex w-full justify-center">
           <Pagination totalPages={totalPages} />

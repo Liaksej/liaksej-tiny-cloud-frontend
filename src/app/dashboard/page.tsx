@@ -7,7 +7,7 @@ import { InvoicesTableSkeleton } from "@/ui/skeletons";
 import { Suspense } from "react";
 import DashboardTable from "@/ui/dashboard/dashboardTable";
 
-export default async function Page({
+export default async function DashboardPage({
   searchParams,
 }: {
   searchParams?: {

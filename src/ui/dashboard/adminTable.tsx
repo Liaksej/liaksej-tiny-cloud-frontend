@@ -5,6 +5,7 @@ import { User } from "@/lib/definitions";
 import UpdateAdminStatus from "@/ui/dashboard/change-admin-status-button";
 import { auth } from "@/auth.config";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 export default async function AdminTable({
   query,
@@ -108,7 +109,12 @@ export default async function AdminTable({
                 >
                   <td className="whitespace-nowrap py-3 pl-6">
                     <div className="flex items-center gap-3 font-medium">
-                      <p>{user.username}</p>
+                      <Link
+                        className="underline text-blue-700"
+                        href={`/admin/${user.username}`}
+                      >
+                        {user.username}
+                      </Link>
                     </div>
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">{user.email}</td>

@@ -10,19 +10,21 @@ export default function AdminLink() {
 
   return (
     <Link
-      href={pathname === "/admin" ? "/dashboard" : "/admin"}
+      href={pathname.startsWith("/admin") ? "/dashboard" : "/admin"}
       className={clsx(
         "flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3",
         {
           "bg-orange-400 hover:bg-orange-500 hover:text-red-900":
-            pathname === "/admin",
+            pathname.startsWith("/admin"),
         },
       )}
     >
       <AdjustmentsHorizontalIcon className="w-6" />
       <div className="flex justify-between w-[calc(100%-1.8rem)] pr-3">
         <p className="hidden md:block">Admin panel</p>
-        <p className="text-red-700">{pathname === "/admin" ? "ON" : ""}</p>
+        <p className="text-red-700">
+          {pathname.startsWith("/admin") ? "ON" : ""}
+        </p>
       </div>
     </Link>
   );

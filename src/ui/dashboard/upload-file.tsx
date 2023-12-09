@@ -49,7 +49,7 @@ export default function UploadFile() {
     }
   };
 
-  if (pathname === "/admin") {
+  if (pathname.startsWith("/admin")) {
     return null;
   }
 

@@ -28,22 +28,35 @@ export async function fetchTableData(
   query: string,
   currentPage: number,
   type: string | number,
+  name?: string,
 ) {
   noStore();
   const session = await auth();
 
+  const params = new Map<string, string | number | null>([
+    ["username", name ? name : null],
+    ["currentPage", currentPage > 1 ? currentPage : null],
+  ]);
+
+  const url = new URL(
+    `${process.env.NEXTAUTH_BACKEND_URL}${
+      type === "users" ? "auth/users/" : "cloud/files/"
+    }`,
+  );
+
+  params.forEach((value, key) => {
+    if (value === null) return;
+
+    url.searchParams.append(key, value.toString());
+  });
+
   try {
-    const response = await fetch(
-      `${process.env.NEXTAUTH_BACKEND_URL}${
-        type === "users" ? "auth/users/" : "cloud/files/"
-      }${currentPage > 1 ? `?page=${currentPage}` : ""}`,
-      {
-        headers: {
-          ContentType: "application/json",
-          Authorization: `Bearer ${session?.user?.access}`,
-        },
+    const response = await fetch(url, {
+      headers: {
+        ContentType: "application/json",
+        Authorization: `Bearer ${session?.user?.access}`,
       },
-    );
+    });
     if (!response.ok) {
       throw new Error("Failed to fetch table data.");
     }
@@ -55,12 +68,14 @@ export async function fetchTableData(
   }
 }
 
-export async function fetchFilesPages(query: string | number) {
+export async function fetchFilesPages(query: string | number, name?: string) {
   noStore();
   const session = await auth();
   try {
     const countResponse = await fetch(
-      `${process.env.NEXTAUTH_BACKEND_URL}cloud/files/`,
+      `${process.env.NEXTAUTH_BACKEND_URL}cloud/files/${
+        Boolean(name) ? `?username=${name}` : ""
+      }`,
       {
         headers: {
           ContentType: "application/json",
