@@ -1,10 +1,11 @@
-import { UpdateInvoice, DeleteItem } from "@/ui/dashboard/buttons";
+import { DeleteItem } from "@/ui/dashboard/buttons";
 import { formatDateToLocal, formatSize } from "@/lib/utils";
 import { fetchTableData } from "@/lib/data";
 import { File } from "@/lib/definitions";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { CopyLinkButton } from "@/ui/dashboard/copy-link-button";
+import { UpdateFileInfo } from "@/ui/dashboard/updateInfoButton";
 
 export default async function DashboardTable({
   query,
@@ -67,7 +68,7 @@ export default async function DashboardTable({
                     <p>{formatDateToLocal(file["date_created"])}</p>
                   </div>
                   <div className="flex justify-end gap-2">
-                    <UpdateInvoice id={file.id} />
+                    <UpdateFileInfo id={file.id} name={name} />
                     <DeleteItem id={file.id} type="file" />
                   </div>
                 </div>
@@ -134,7 +135,7 @@ export default async function DashboardTable({
                   </td>
                   <td className="whitespace-nowrap py-3 pr-3">
                     <div className="flex justify-end gap-3">
-                      <UpdateInvoice id={file.id} />
+                      <UpdateFileInfo id={file.id} name={name} />
                       <DeleteItem id={file.id} type="file" />
                     </div>
                   </td>

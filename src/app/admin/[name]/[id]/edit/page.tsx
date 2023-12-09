@@ -2,14 +2,13 @@ import Breadcrumbs from "@/ui/dashboard/breadcrumbs";
 import { fetchFile } from "@/lib/data";
 import { notFound } from "next/navigation";
 import { FileEdit } from "@/lib/definitions";
-import EdirFileForm from "@/ui/dashboard/edit-file-form";
+import EditFileForm from "@/ui/dashboard/edit-file-form";
 
-export default async function Page({
-  params,
+export default async function EditPage({
+  params: { name, id },
 }: {
   params: { name: string; id: string };
 }) {
-  const { name, id } = params;
   const file = (await fetchFile(id)) as FileEdit;
 
   if (!file) {
@@ -23,7 +22,7 @@ export default async function Page({
           {
             label: `${name}`,
             href: `/admin/${name}`,
-            active: true,
+            active: false,
           },
           {
             label: `${file.original_name}`,
@@ -32,7 +31,7 @@ export default async function Page({
           },
         ]}
       />
-      <EdirFileForm file={file} />
+      <EditFileForm file={file} />
     </main>
   );
 }

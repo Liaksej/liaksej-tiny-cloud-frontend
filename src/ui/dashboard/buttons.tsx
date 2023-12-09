@@ -1,22 +1,6 @@
-import {
-  PencilIcon,
-  ClipboardDocumentIcon,
-  TrashIcon,
-} from "@heroicons/react/24/outline";
-import Link from "next/link";
+import { TrashIcon } from "@heroicons/react/24/outline";
 import { deleteFile, deleteUser } from "@/lib/actions";
 import clsx from "clsx";
-
-export function UpdateInvoice({ id }: { id: string }) {
-  return (
-    <Link
-      href={`/dashboard/${id}/edit`}
-      className="rounded-md border p-2 hover:bg-gray-100"
-    >
-      <PencilIcon className="w-5" />
-    </Link>
-  );
-}
 
 export function DeleteItem({
   id,
