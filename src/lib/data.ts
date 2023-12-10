@@ -35,7 +35,7 @@ export async function fetchTableData(
 
   const params = new Map<string, string | number | null>([
     ["username", name ? name : null],
-    ["currentPage", currentPage > 1 ? currentPage : null],
+    ["page", currentPage > 1 ? currentPage : null],
   ]);
 
   const url = new URL(
