@@ -55,13 +55,9 @@ export default async function DashboardTable({
                     <p className="font-bold">{file.original_name}</p>
                   </Link>
                   <p className="text-sm text-gray-500">{file.comment}</p>
-                  {/*<InvoiceStatus status={file.status} />*/}
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
                   <div>
-                    {/*<p className="text-xl font-medium">*/}
-                    {/*  {formatCurrency(file.amount)}*/}
-                    {/*</p>*/}
                     <p className="text-xl font-medium">
                       {formatSize(file.size)}
                     </p>
@@ -128,7 +124,9 @@ export default async function DashboardTable({
                     {formatDateToLocal(file.date_created)}
                   </td>
                   <td className="whitespace-nowrap py-3">
-                    {formatDateToLocal(file.date_downloaded)}
+                    {file.date_downloaded
+                      ? formatDateToLocal(file.date_downloaded)
+                      : "n/a"}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
                     <CopyLinkButton public_url={file.public_url} />
