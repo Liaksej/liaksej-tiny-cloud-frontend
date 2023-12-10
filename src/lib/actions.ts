@@ -145,8 +145,8 @@ export async function updateFile(prevState: State, formData: FormData) {
   } catch (e) {
     return { message: "Fetch Error: Failed to Save Changes." };
   }
-  revalidatePath("/dashboard");
-  redirect("/dashboard");
+  revalidatePath("../");
+  redirect("../");
 }
 
 export async function updateAdminStatus(formData: FormData) {
