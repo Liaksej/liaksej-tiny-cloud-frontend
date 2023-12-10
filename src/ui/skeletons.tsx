@@ -4,7 +4,7 @@ export function DashboardTableRowSkeleton() {
       {/* Customer Name and Image */}
       <td className="relative overflow-hidden whitespace-nowrap py-3 pl-6">
         <div className="flex items-center gap-3">
-          <div className="h-6 w-24 rounded bg-gray-100"></div>
+          <div className="h-6 w-60 rounded bg-gray-100"></div>
         </div>
       </td>
       {/* Email */}
@@ -123,26 +123,26 @@ export function AdminTableRowSkeleton() {
     <tr className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg">
       <td className="relative overflow-hidden whitespace-nowrap py-3 pl-6">
         <div className="flex items-center gap-3">
-          <div className="h-6 w-24 rounded bg-gray-100"></div>
+          <div className="h-6 w-32 rounded bg-gray-100"></div>
         </div>
       </td>
       <td className="whitespace-nowrap px-3 py-3">
-        <div className="h-6 w-32 rounded bg-gray-100"></div>
+        <div className="h-6 w-36 rounded bg-gray-100"></div>
       </td>
       <td className="whitespace-nowrap px-3 pr-14 py-3">
-        <div className="h-6 w-16 rounded bg-gray-100"></div>
+        <div className="h-6 w-32 rounded bg-gray-100"></div>
       </td>
       <td className="whitespace-nowrap px-3 py-3">
-        <div className="h-6 w-16 rounded bg-gray-100"></div>
+        <div className="h-6 w-10 rounded bg-gray-100"></div>
       </td>
       <td className="whitespace-nowrap px-3 py-3">
-        <div className="h-6 w-16 rounded bg-gray-100"></div>
+        <div className="h-6 w-20 rounded bg-gray-100"></div>
       </td>
       <td className="whitespace-nowrap py-3">
-        <div className="h-6 w-16 rounded bg-gray-100"></div>
+        <div className="h-6 w-36 rounded bg-gray-100"></div>
       </td>
       <td className="whitespace-nowrap py-3">
-        <div className="h-6 w-16 rounded bg-gray-100"></div>
+        <div className="h-6 w-36 rounded bg-gray-100"></div>
       </td>
       <td className="whitespace-nowrap py-3 px-3">
         <div className="h-6 w-6 rounded bg-gray-100"></div>
