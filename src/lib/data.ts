@@ -27,7 +27,7 @@ const ITEMS_PER_PAGE = 10;
 export async function fetchTableData(
   query: string,
   currentPage: number,
-  type: string | number,
+  type: "files" | "users",
   name?: string,
 ) {
   noStore();
@@ -74,7 +74,11 @@ export async function fetchTableData(
   }
 }
 
-export async function fetchFilesPages(query: string | number, name?: string) {
+export async function fetchFilesPages(
+  query: string | number,
+  type: "files" | "users",
+  name?: string,
+) {
   noStore();
   const session = await auth();
 
@@ -82,7 +86,11 @@ export async function fetchFilesPages(query: string | number, name?: string) {
     ["username", name ? name : null],
   ]);
 
-  const url = new URL(`${process.env.NEXTAUTH_BACKEND_URL}cloud/files/`);
+  const url = new URL(
+    `${process.env.NEXTAUTH_BACKEND_URL}${
+      type === "users" ? "auth/users/" : "cloud/files/"
+    }`,
+  );
 
   params.forEach((value, key) => {
     if (value === null) return;
