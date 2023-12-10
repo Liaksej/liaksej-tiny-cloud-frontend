@@ -57,6 +57,12 @@ export async function fetchTableData(
         Authorization: `Bearer ${session?.user?.access}`,
       },
     });
+    if (response.status === 404) {
+      const info = await response.json();
+      if (info.detail == "Invalid page.") {
+        return;
+      }
+    }
     if (!response.ok) {
       throw new Error("Failed to fetch table data.");
     }
