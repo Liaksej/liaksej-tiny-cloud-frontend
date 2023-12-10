@@ -2,7 +2,7 @@ import { lusitana } from "@/ui/fonts";
 import { fetchFilesPages } from "@/lib/data";
 import Search from "@/ui/dashboard/search";
 import Pagination from "@/ui/dashboard/pagination";
-import { InvoicesTableSkeleton } from "@/ui/skeletons";
+import { AdminTableSkeleton } from "@/ui/skeletons";
 import { Suspense } from "react";
 import AdminTable from "@/ui/dashboard/adminTable";
 
@@ -30,10 +30,7 @@ export default async function AdminPage({
         <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
           <Search placeholder="Search users..." />
         </div>
-        <Suspense
-          key={query + currentPage}
-          fallback={<InvoicesTableSkeleton />}
-        >
+        <Suspense key={query + currentPage} fallback={<AdminTableSkeleton />}>
           <AdminTable query={query} currentPage={currentPage} />
         </Suspense>
         <div className="mt-5 flex w-full justify-center">

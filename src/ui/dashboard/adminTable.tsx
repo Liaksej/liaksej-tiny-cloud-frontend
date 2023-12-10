@@ -48,7 +48,6 @@ export default async function AdminTable({
                   <p className="text-sm text-gray-500">{user.email}</p>
                   <p className="text-sm text-gray-500">{user.first_name}</p>
                   <p className="text-sm text-gray-500">{user.last_name}</p>
-                  {/*<InvoiceStatus status={file.status} />*/}
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
                   <div>
@@ -93,9 +92,6 @@ export default async function AdminTable({
                 <th scope="col" className="px-3 py-5 font-medium">
                   Admin
                 </th>
-                {/*<th scope="col" className="px-3 py-5 font-medium">*/}
-                {/*  Status*/}
-                {/*</th>*/}
                 <th scope="col" className="relative py-3 pl-6 pr-1">
                   <span>Delete</span>
                 </th>
