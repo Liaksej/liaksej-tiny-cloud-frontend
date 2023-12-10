@@ -71,18 +71,26 @@ export async function fetchTableData(
 export async function fetchFilesPages(query: string | number, name?: string) {
   noStore();
   const session = await auth();
+
+  const params = new Map<string, string | number | null>([
+    ["username", name ? name : null],
+  ]);
+
+  const url = new URL(`${process.env.NEXTAUTH_BACKEND_URL}cloud/files/`);
+
+  params.forEach((value, key) => {
+    if (value === null) return;
+
+    url.searchParams.append(key, value.toString());
+  });
+
   try {
-    const countResponse = await fetch(
-      `${process.env.NEXTAUTH_BACKEND_URL}cloud/files/${
-        Boolean(name) ? `?username=${name}` : ""
-      }`,
-      {
-        headers: {
-          ContentType: "application/json",
-          Authorization: `Bearer ${session?.user?.access}`,
-        },
+    const countResponse = await fetch(url, {
+      headers: {
+        ContentType: "application/json",
+        Authorization: `Bearer ${session?.user?.access}`,
       },
-    );
+    });
 
     if (!countResponse.ok) {
       throw new Error("Failed to fetch invoices.");
