@@ -29,7 +29,7 @@ export function CopyLinkButton({ public_url }: { public_url: string | null }) {
           !public_url && "bg-gray-200 hover:bg-gray-200 opacity-25",
         )}
       >
-        <span className="sr-only">Delete</span>
+        <span className="sr-only">Copy Link</span>
         <ClipboardDocumentIcon className="w-5" />
 
         <span ref={tooltip} className="hidden absolute -top-2.5">
