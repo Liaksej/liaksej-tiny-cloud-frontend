@@ -32,14 +32,17 @@ export async function sendFileToServer(formData: FormData) {
     if (!session) {
       console.error("No session");
     }
-    const response = await fetch("http://127.0.0.1:8000/api/cloud/files/", {
-      method: "POST",
-      headers: {
-        ContentType: "multipart/form-data",
-        Authorization: `Bearer ${session?.user?.access}`,
+    const response = await fetch(
+      `${process.env.NEXTAUTH_BACKEND_URL}cloud/files/`,
+      {
+        method: "POST",
+        headers: {
+          ContentType: "multipart/form-data",
+          Authorization: `Bearer ${session?.user?.access}`,
+        },
+        body: formData,
       },
-      body: formData,
-    });
+    );
     if (response.ok) {
       revalidatePath("/dashboard");
       return null;
@@ -63,7 +66,7 @@ export async function deleteFile(formData: FormData) {
       console.error("No session");
     }
     const response = await fetch(
-      `http://127.0.0.1:8000/api/cloud/files/${formData.get("id")}`,
+      `${process.env.NEXTAUTH_BACKEND_URL}cloud/files/${formData.get("id")}`,
       {
         method: "DELETE",
         headers: {
@@ -156,7 +159,9 @@ export async function updateAdminStatus(formData: FormData) {
       console.error("No session");
     }
     const response = await fetch(
-      `http://127.0.0.1:8000/api/auth/users/${formData.get("username")}/`,
+      `${process.env.NEXTAUTH_BACKEND_URL}auth/users/${formData.get(
+        "username",
+      )}/`,
       {
         method: "PATCH",
         headers: {

@@ -19,7 +19,7 @@ export default async function DashboardPage({
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
 
-  const totalPages = await fetchFilesPages(query);
+  const totalPages = await fetchFilesPages(query, "files");
 
   return (
     <main className="w-full">

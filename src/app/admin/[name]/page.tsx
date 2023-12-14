@@ -3,7 +3,7 @@ import { lusitana } from "@/ui/fonts";
 import { fetchFilesPages } from "@/lib/data";
 import Search from "@/ui/dashboard/search";
 import Pagination from "@/ui/dashboard/pagination";
-import {AdminTableSkeleton, DashboardTableSkeleton} from "@/ui/skeletons";
+import { AdminTableSkeleton, DashboardTableSkeleton } from "@/ui/skeletons";
 import { Suspense } from "react";
 import DashboardTable from "@/ui/dashboard/dashboardTable";
 import Breadcrumbs from "@/ui/dashboard/breadcrumbs";
@@ -17,7 +17,7 @@ export default async function DashboardPage({
     page?: string;
   };
   params: {
-    name: string;
+    name: "users" | "files";
   };
 }) {
   const session = await auth();

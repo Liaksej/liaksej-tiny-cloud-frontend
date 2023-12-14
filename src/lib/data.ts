@@ -124,7 +124,7 @@ export async function fetchFile(id: string) {
   const session = await auth();
   try {
     const countResponse = await fetch(
-      `http://127.0.0.1:8000/api/cloud/files/${id}`,
+      `${process.env.NEXTAUTH_BACKEND_URL}cloud/files/${id}`,
       {
         headers: {
           ContentType: "application/json",
