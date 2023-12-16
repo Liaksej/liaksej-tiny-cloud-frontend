@@ -23,6 +23,15 @@ export async function GET(
   }
 
   const blob = await response.blob();
+  const contentDisposition = response.headers.get("Content-Disposition");
 
-  return new Response(blob);
+  if (!contentDisposition) {
+    throw new Error(`Content-Disposition header not found`);
+  }
+  return new Response(blob, {
+    headers: {
+      "Content-Type": blob.type,
+      "Content-Disposition": contentDisposition,
+    },
+  });
 }
