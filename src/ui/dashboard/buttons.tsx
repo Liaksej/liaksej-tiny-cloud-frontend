@@ -5,12 +5,10 @@ import clsx from "clsx";
 export function DeleteItem({
   id,
   type,
-  admin,
   authuser,
 }: {
   id: string | number;
   type: "user" | "file";
-  admin?: boolean;
   authuser?: string;
 }) {
   return (

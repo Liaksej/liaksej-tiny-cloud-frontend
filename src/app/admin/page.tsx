@@ -4,7 +4,7 @@ import Search from "@/ui/dashboard/search";
 import Pagination from "@/ui/dashboard/pagination";
 import { AdminTableSkeleton } from "@/ui/skeletons";
 import { Suspense } from "react";
-import AdminTable from "@/ui/dashboard/adminTable";
+import AdminTable from "@/ui/adminPanel/adminTable";
 
 const DEFAULT_QUERY = "";
 const DEFAULT_CURRENT_PAGE = 1;
