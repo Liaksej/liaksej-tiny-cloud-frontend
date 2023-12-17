@@ -184,7 +184,23 @@ export async function updateAdminStatus(formData: FormData) {
 }
 
 export async function registrate(
-  prevState: string | undefined,
+  prevState:
+    | undefined
+    | {
+        errors:
+          | {
+              email?: string[];
+              username?: string[];
+              password1?: string[];
+              password2?: string[];
+              first_name?: string[];
+              last_name?: string[];
+            }
+          | string;
+
+        message: string;
+      },
+
   formData: FormData,
 ) {
   const credentials = Object.fromEntries(formData);
@@ -254,12 +270,12 @@ export async function registrate(
       if (error.password1 && error.password1[0]) {
         return {
           errors: response.statusText,
-          message: "error.password1.",
+          message: error.password1[0],
         };
       }
       return {
         errors: response.statusText,
-        message: "error.",
+        message: "Error with credentials",
       };
     }
 
@@ -270,10 +286,10 @@ export async function registrate(
       });
     }
   } catch (error) {
-    if ((error as Error).message.includes("CredentialsSignin")) {
-      return "CredentialRegister";
-    }
-    throw error;
+    return {
+      errors: (error as Error).message,
+      message: "Something went wrong. Failed Registration.",
+    };
   }
   return;
 }
