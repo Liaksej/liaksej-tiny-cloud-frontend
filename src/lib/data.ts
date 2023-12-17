@@ -29,21 +29,6 @@ async function fetchDataFromAPI(
       },
     });
 
-    if (
-      response.status === 404 &&
-      (endpoint === "auth/users/" || endpoint === "cloud/files/")
-    ) {
-      const info = await response.json();
-      if (info.detail == "Invalid page.") {
-        return;
-      }
-    }
-
-    if (!response.ok) {
-      console.error("Fetch Error:", response.statusText);
-      throw new Error("Failed to fetch" + endpoint);
-    }
-
     return response;
   } catch (error) {
     console.error("Fetch Error:", error);
@@ -69,7 +54,6 @@ export async function fetchTableData(
         return;
       }
     }
-
     if (!response?.ok) {
       throw new Error("Failed to fetch table data.");
     }
