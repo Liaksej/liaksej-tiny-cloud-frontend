@@ -22,5 +22,6 @@ describe("template spec", () => {
     cy.get("#locked").click();
     cy.get("button").contains("Save").click();
     cy.contains("Copy Link").should("be.disabled");
+    cy.get("button").contains("Delete").last().parent().parent().submit();
   });
 });

@@ -19,5 +19,12 @@ describe("template spec", () => {
           cy.wrap($checkbox).click().should("be.checked");
         }
       });
+    cy.get("input[type='checkbox']").last().click();
+    cy.get("button")
+      .contains("Delete")
+      .last()
+      .parent()
+      .parent()
+      .click({ force: true });
   });
 });
