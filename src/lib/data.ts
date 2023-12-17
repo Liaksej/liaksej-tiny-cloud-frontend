@@ -41,13 +41,13 @@ async function fetchDataFromAPI(
 
     if (!response.ok) {
       console.error("Fetch Error:", response.statusText);
-      throw new Error(`Failed to fetch ${endpoint}`);
+      throw new Error("Failed to fetch" + endpoint);
     }
 
     return response;
   } catch (error) {
     console.error("Fetch Error:", error);
-    throw new Error(`Failed to fetch ${endpoint}`);
+    throw new Error("Failed to fetch" + endpoint);
   }
 }
 

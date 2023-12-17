@@ -144,7 +144,6 @@ export default async function AdminTable({
                       <DeleteItem
                         id={user.username}
                         type="user"
-                        admin={user.is_staff}
                         authuser={session?.user?.name as string}
                       />
                     </div>
