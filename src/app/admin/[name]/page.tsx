@@ -1,14 +1,15 @@
-import { auth } from "@/auth.config";
-import { lusitana } from "@/ui/fonts";
 import { fetchFilesPages } from "@/lib/data";
 import Search from "@/ui/dashboard/search";
 import Pagination from "@/ui/dashboard/pagination";
-import { AdminTableSkeleton, DashboardTableSkeleton } from "@/ui/skeletons";
+import { DashboardTableSkeleton } from "@/ui/skeletons";
 import { Suspense } from "react";
 import DashboardTable from "@/ui/dashboard/dashboardTable";
 import Breadcrumbs from "@/ui/dashboard/breadcrumbs";
 
-export default async function DashboardPage({
+const DEFAULT_QUERY = "";
+const DEFAULT_CURRENT_PAGE = 1;
+
+export default async function UsersDashboardForAdmin({
   searchParams,
   params,
 }: {
@@ -20,9 +21,8 @@ export default async function DashboardPage({
     name: "users" | "files";
   };
 }) {
-  const session = await auth();
-  const query = searchParams?.query || "";
-  const currentPage = Number(searchParams?.page) || 1;
+  const query = searchParams?.query ?? DEFAULT_QUERY;
+  const currentPage = Number(searchParams?.page) ?? DEFAULT_CURRENT_PAGE;
 
   const totalPages = await fetchFilesPages(query, params.name);
 

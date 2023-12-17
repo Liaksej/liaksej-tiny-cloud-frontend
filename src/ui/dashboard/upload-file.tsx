@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import { lusitana } from "@/ui/fonts";
 import { Button } from "@/ui/button";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
+import clsx from "clsx";
 
 export default function UploadFile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -94,7 +95,6 @@ export default function UploadFile() {
                         rows={3}
                         maxLength={150}
                       />
-                      {/*<KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />*/}
                     </div>
                   </div>
                 </div>
@@ -108,7 +108,14 @@ export default function UploadFile() {
           </ModalUpload>,
           document.getElementById("main") as HTMLElement,
         )}
-      <form className="relative flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3">
+      <form
+        className={clsx(
+          "relative flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3",
+          {
+            "text-gray-400 hover:bg-gray-50 hover:text-gray-400": isModalOpen,
+          },
+        )}
+      >
         <input
           type="file"
           className="w-full h-full opacity-0 absolute top-0 left-0"
@@ -116,6 +123,7 @@ export default function UploadFile() {
           onClick={(e: MouseEvent<HTMLInputElement>) => {
             e.currentTarget.value = "";
           }}
+          disabled={isModalOpen}
         />
         <ArrowUpTrayIcon className="w-6" />
         <p className="hidden md:block">Upload File</p>

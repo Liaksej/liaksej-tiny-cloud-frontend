@@ -1,6 +1,6 @@
 import Link from "next/link";
 import UploadFile from "@/ui/dashboard/upload-file";
-import AcmeLogo from "../acme-logo";
+import CloudLogo from "../cloud-logo";
 import { PowerIcon } from "@heroicons/react/24/outline";
 import { signOut } from "@/auth.config";
 import AdminLink from "@/ui/dashboard/admin-link";
@@ -15,7 +15,7 @@ export default async function SideNav() {
         href="/"
       >
         <div className="w-32 text-white md:w-40">
-          <AcmeLogo />
+          <CloudLogo />
         </div>
       </Link>
       <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">

@@ -6,6 +6,9 @@ import { AdminTableSkeleton } from "@/ui/skeletons";
 import { Suspense } from "react";
 import AdminTable from "@/ui/dashboard/adminTable";
 
+const DEFAULT_QUERY = "";
+const DEFAULT_CURRENT_PAGE = 1;
+
 export default async function AdminPage({
   searchParams,
 }: {
@@ -14,8 +17,8 @@ export default async function AdminPage({
     page?: string;
   };
 }) {
-  const query = searchParams?.query || "";
-  const currentPage = Number(searchParams?.page) || 1;
+  const query = searchParams?.query ?? DEFAULT_QUERY;
+  const currentPage = Number(searchParams?.page) ?? DEFAULT_CURRENT_PAGE;
 
   const totalPages = await fetchFilesPages(query, "users");
 
