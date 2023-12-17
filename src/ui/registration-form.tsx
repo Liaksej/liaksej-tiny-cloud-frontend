@@ -47,12 +47,16 @@ export default function RegistrationForm() {
                 code !== null &&
                   typeof code === "object" &&
                   code.errors &&
+                  typeof code.errors === "object" &&
                   code.errors.username,
               ) && (
                 <>
                   <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
                   <p aria-live="polite" className="text-sm text-red-500">
-                    {typeof code === "object" && code.errors.username}
+                    {typeof code === "object" &&
+                      code.errors &&
+                      typeof code.errors === "object" &&
+                      code.errors.username}
                   </p>
                 </>
               )}
@@ -81,12 +85,15 @@ export default function RegistrationForm() {
                 code !== null &&
                   typeof code === "object" &&
                   code.errors &&
+                  typeof code.errors === "object" &&
                   code.errors.email,
               ) && (
                 <>
                   <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
                   <p aria-live="polite" className="text-sm text-red-500">
-                    {typeof code === "object" && code.errors.email}
+                    {typeof code === "object" &&
+                      typeof code.errors === "object" &&
+                      code.errors.email}
                   </p>
                 </>
               )}
@@ -116,12 +123,15 @@ export default function RegistrationForm() {
                 code !== null &&
                   typeof code === "object" &&
                   code.errors &&
+                  typeof code.errors === "object" &&
                   code.errors.password1,
               ) && (
                 <>
                   <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
                   <p aria-live="polite" className="text-sm text-red-500">
-                    {typeof code === "object" && code.errors.password1}
+                    {typeof code === "object" &&
+                      typeof code.errors === "object" &&
+                      code.errors.password1}
                   </p>
                 </>
               )}
@@ -151,12 +161,15 @@ export default function RegistrationForm() {
                 code !== null &&
                   typeof code === "object" &&
                   code.errors &&
+                  typeof code.errors === "object" &&
                   code.errors.password2,
               ) && (
                 <>
                   <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
                   <p aria-live="polite" className="text-sm text-red-500">
-                    {typeof code === "object" && code.errors.password2}
+                    {typeof code === "object" &&
+                      typeof code.errors === "object" &&
+                      code.errors.password2}
                   </p>
                 </>
               )}
@@ -185,12 +198,15 @@ export default function RegistrationForm() {
                 code !== null &&
                   typeof code === "object" &&
                   code.errors &&
+                  typeof code.errors === "object" &&
                   code.errors.first_name,
               ) && (
                 <>
                   <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
                   <p aria-live="polite" className="text-sm text-red-500">
-                    {typeof code === "object" && code.errors.first_name}
+                    {typeof code === "object" &&
+                      typeof code.errors === "object" &&
+                      code.errors.first_name}
                   </p>
                 </>
               )}
@@ -219,12 +235,15 @@ export default function RegistrationForm() {
                 code !== null &&
                   typeof code === "object" &&
                   code.errors &&
+                  typeof code.errors === "object" &&
                   code.errors.last_name,
               ) && (
                 <>
                   <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
                   <p aria-live="polite" className="text-sm text-red-500">
-                    {typeof code === "object" && code.errors.last_name}
+                    {typeof code === "object" &&
+                      typeof code.errors === "object" &&
+                      code.errors.last_name}
                   </p>
                 </>
               )}
