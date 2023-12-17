@@ -28,7 +28,7 @@ export default async function AdminPage({
           </h1>
         </div>
         <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
-          <Search placeholder="Search users..." />
+          <Search placeholder="Search by username..." />
         </div>
         <Suspense key={query + currentPage} fallback={<AdminTableSkeleton />}>
           <AdminTable query={query} currentPage={currentPage} />
