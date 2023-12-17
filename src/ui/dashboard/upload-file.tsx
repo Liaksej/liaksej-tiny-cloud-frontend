@@ -1,16 +1,10 @@
 "use client";
 
-import {
-  ArrowUpTrayIcon,
-  DocumentIcon,
-  ExclamationCircleIcon,
-  KeyIcon,
-} from "@heroicons/react/24/outline";
+import { ArrowUpTrayIcon, DocumentIcon } from "@heroicons/react/24/outline";
 import { ChangeEvent, useState, MouseEvent } from "react";
 import { createPortal, useFormStatus } from "react-dom";
 import ModalUpload from "@/ui/dashboard/modal-upload";
 import { sendFileToServer } from "@/lib/actions";
-import { clsx } from "clsx";
 import { usePathname } from "next/navigation";
 import { lusitana } from "@/ui/fonts";
 import { Button } from "@/ui/button";
@@ -98,7 +92,7 @@ export default function UploadFile() {
                         name="password"
                         placeholder="Enter comment..."
                         rows={3}
-                        minLength={6}
+                        maxLength={150}
                       />
                       {/*<KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />*/}
                     </div>
@@ -127,25 +121,6 @@ export default function UploadFile() {
         <p className="hidden md:block">Upload File</p>
       </form>
     </>
-  );
-}
-
-function Upload() {
-  const { pending } = useFormStatus();
-
-  return (
-    <button
-      className={clsx(
-        "mt-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm py-1 px-2 rounded",
-        {
-          "bg-gray-400": pending,
-        },
-      )}
-      type="submit"
-      aria-disabled={pending}
-    >
-      {pending ? "Loading" : "Upload"}
-    </button>
   );
 }
 
