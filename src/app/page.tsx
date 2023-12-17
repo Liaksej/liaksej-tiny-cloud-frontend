@@ -1,5 +1,4 @@
-import styles from "@/ui/home.module.css";
-import CloudLogo from "@/ui/cloud-logo";
+import CloudLogo from "@/ui/sideNav/CloudLogo";
 
 import Link from "next/link";
 import { lusitana } from "@/ui/fonts";

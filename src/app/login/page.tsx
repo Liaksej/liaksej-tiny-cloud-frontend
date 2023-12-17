@@ -1,5 +1,5 @@
-import CloudLogo from "@/ui/cloud-logo";
-import LoginForm from "@/ui/login-form";
+import CloudLogo from "@/ui/sideNav/CloudLogo";
+import LoginForm from "@/ui/LoginForm";
 import Link from "next/link";
 
 export default function LoginPage() {

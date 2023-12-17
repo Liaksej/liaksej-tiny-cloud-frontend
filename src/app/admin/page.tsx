@@ -1,10 +1,10 @@
 import { lusitana } from "@/ui/fonts";
 import { fetchFilesPages } from "@/lib/data";
-import Search from "@/ui/dashboard/search";
-import Pagination from "@/ui/dashboard/pagination";
-import { AdminTableSkeleton } from "@/ui/skeletons";
+import Search from "@/ui/dashboard/Search";
+import Pagination from "@/ui/dashboard/Pagination";
+import { AdminTableSkeleton } from "@/ui/Skeletons";
 import { Suspense } from "react";
-import AdminTable from "@/ui/adminPanel/adminTable";
+import AdminTable from "@/ui/adminPanel/AdminTable";
 
 const DEFAULT_QUERY = "";
 const DEFAULT_CURRENT_PAGE = 1;
