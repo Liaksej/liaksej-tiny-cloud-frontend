@@ -199,7 +199,8 @@ export async function registrate(
           | string;
 
         message: string;
-      },
+      }
+    | string,
 
   formData: FormData,
 ) {
@@ -286,10 +287,10 @@ export async function registrate(
       });
     }
   } catch (error) {
-    return {
-      errors: (error as Error).message,
-      message: "Something went wrong. Failed Registration.",
-    };
+    if ((error as Error).message.includes("CredentialsSignin")) {
+      return "CredentialRegister";
+    }
+    throw error;
   }
   return;
 }
