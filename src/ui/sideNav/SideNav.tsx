@@ -1,9 +1,9 @@
 import Link from "next/link";
-import UploadFile from "@/ui/dashboard/upload-file";
-import CloudLogo from "../cloud-logo";
+import UploadFile from "@/ui/sideNav/UploadFile";
+import CloudLogo from "./CloudLogo";
 import { PowerIcon } from "@heroicons/react/24/outline";
 import { signOut } from "@/auth.config";
-import AdminLink from "@/ui/dashboard/admin-link";
+import AdminLink from "@/ui/sideNav/AdminLink";
 import { adminCheck } from "@/lib/data";
 
 export default async function SideNav() {

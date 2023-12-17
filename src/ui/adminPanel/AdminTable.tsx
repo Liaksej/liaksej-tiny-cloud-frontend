@@ -1,37 +1,34 @@
-import { DeleteItem } from "@/ui/dashboard/buttons";
+import { DeleteItem } from "@/ui/dashboard/Buttons";
 import { formatDateToLocal, formatSize } from "@/lib/utils";
 import { fetchTableData } from "@/lib/data";
-import { File } from "@/lib/definitions";
+import { User } from "@/lib/definitions";
+import UpdateAdminStatus from "@/ui/adminPanel/ChangeAdminStatusButton";
+import { auth } from "@/auth.config";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { CopyLinkButton } from "@/ui/dashboard/copy-link-button";
-import { UpdateFileInfo } from "@/ui/dashboard/updateInfoButton";
 
-export default async function DashboardTable({
+export default async function AdminTable({
   query,
   currentPage,
-  name,
 }: {
   query: string;
   currentPage: number;
-  name?: string;
 }) {
-  const files = await fetchTableData(query, currentPage, "files", name);
+  const session = await auth();
+  const users = await fetchTableData(query, currentPage, "users");
 
-  if (!files) {
+  if (!users) {
     if (currentPage > 2) {
-      redirect(`/dashboard?page=${currentPage - 1}`);
+      redirect(`/users?page=${currentPage - 1}`);
     } else {
-      redirect("/dashboard");
+      redirect("/users");
     }
   }
 
-  if (files.count === 0) {
+  if (users.count === 0) {
     return (
       <div className="flex min-h-fit justify-center items-center pt-6 text-gray-400">
-        <h1 className="text-ml font-normal">
-          There is no files yet. Add some.
-        </h1>
+        <h1 className="text-ml font-normal">There is no users yet.</h1>
       </div>
     );
   }
@@ -41,31 +38,28 @@ export default async function DashboardTable({
       <div className="inline-block min-w-full align-middle">
         <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
           <div className="md:hidden">
-            {files.results?.map((file: File) => (
+            {users.results?.map((user: User) => (
               <div
-                key={file.id}
+                key={user.username}
                 className="mb-2 w-full rounded-md bg-white p-4"
               >
                 <div className="flex items-center justify-between border-b pb-4">
-                  <Link
-                    href={`/download/${file.id}`}
-                    className="text-blue-600 underline"
-                    target="_blank"
-                  >
-                    <p className="font-bold">{file.original_name}</p>
-                  </Link>
-                  <p className="text-sm text-gray-500">{file.comment}</p>
+                  <p className="font-bold">{user["username"]}</p>
+                  <p className="text-sm text-gray-500">{user.email}</p>
+                  <p className="text-sm text-gray-500">{user.first_name}</p>
+                  <p className="text-sm text-gray-500">{user.last_name}</p>
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
                   <div>
+                    <p className="text-xl font-medium">{user.count_files}</p>
                     <p className="text-xl font-medium">
-                      {formatSize(file.size)}
+                      {formatSize(user.total_space.size__sum)}
                     </p>
-                    <p>{formatDateToLocal(file["date_created"])}</p>
+                    <p>{formatDateToLocal(user.date_joined)}</p>
+                    <p>{formatDateToLocal(user.last_login)}</p>
                   </div>
                   <div className="flex justify-end gap-2">
-                    <UpdateFileInfo id={file.id} name={name} />
-                    <DeleteItem id={file.id} type="file" />
+                    <DeleteItem id={user.username} type="user" />
                   </div>
                 </div>
               </div>
@@ -75,66 +69,83 @@ export default async function DashboardTable({
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
                 <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
-                  File name
+                  Username
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Comment
+                  Email
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Size
+                  Full name
+                </th>
+                <th scope="col" className="px-3 py-5 font-medium">
+                  Files
+                </th>
+                <th scope="col" className="px-3 py-5 font-medium">
+                  Total size
                 </th>
                 <th scope="col" className="py-5 font-medium">
-                  Created
+                  Joined
                 </th>
                 <th scope="col" className="py-5 font-medium">
-                  Downloaded
+                  Last login
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Public Link
+                  Admin
                 </th>
-                <th scope="col" className="relative py-3 pl-6 pr-3">
-                  <span className="sr-only">Edit</span>
+                <th scope="col" className="relative py-3 pl-6 pr-1">
+                  <span>Delete</span>
                 </th>
               </tr>
             </thead>
             <tbody className="bg-white">
-              {files.results?.map((file: File) => (
+              {users.results?.map((user: User) => (
                 <tr
-                  key={file.id}
+                  key={user.id}
                   className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
                 >
                   <td className="whitespace-nowrap py-3 pl-6">
                     <div className="flex items-center gap-3 font-medium">
                       <Link
-                        className="text-blue-600 underline"
-                        href={`/download/${file.id}`}
-                        target="_blank"
+                        className="underline text-blue-700"
+                        href={`/admin/${user.username}`}
                       >
-                        <p>{file.original_name}</p>
+                        {user.username}
                       </Link>
                     </div>
                   </td>
+                  <td className="whitespace-nowrap px-3 py-3">{user.email}</td>
                   <td className="whitespace-nowrap px-3 pr-14 py-3">
-                    {file.comment}
+                    {user.first_name}
+                    {user.last_name}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {formatSize(file.size)}
-                  </td>
-                  <td className="whitespace-nowrap py-3">
-                    {formatDateToLocal(file.date_created)}
-                  </td>
-                  <td className="whitespace-nowrap py-3">
-                    {file.date_downloaded
-                      ? formatDateToLocal(file.date_downloaded)
-                      : "n/a"}
+                    {user.count_files}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    <CopyLinkButton public_url={file.public_url} />
+                    {formatSize(user.total_space.size__sum || 0)}
                   </td>
-                  <td className="whitespace-nowrap py-3 pr-3">
-                    <div className="flex justify-end gap-3">
-                      <UpdateFileInfo id={file.id} name={name} />
-                      <DeleteItem id={file.id} type="file" />
+                  <td className="whitespace-nowrap py-3">
+                    {formatDateToLocal(user.date_joined)}
+                  </td>
+                  <td className="whitespace-nowrap py-3">
+                    {formatDateToLocal(user.last_login)}
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-3">
+                    <div className="flex gap-3">
+                      <UpdateAdminStatus
+                        username={user.username}
+                        authuser={session?.user?.name as string}
+                        admin={user.is_staff}
+                      />
+                    </div>
+                  </td>
+                  <td className="whitespace-nowrap pl-6 pr-1">
+                    <div className="flex">
+                      <DeleteItem
+                        id={user.username}
+                        type="user"
+                        authuser={session?.user?.name as string}
+                      />
                     </div>
                   </td>
                 </tr>

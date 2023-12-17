@@ -8,7 +8,7 @@ import {
   LockOpenIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { Button } from "@/ui/button";
+import { Button } from "@/ui/Button";
 import { updateFile } from "@/lib/actions";
 import { useFormState } from "react-dom";
 

@@ -8,11 +8,11 @@ import {
   UserIcon,
 } from "@heroicons/react/24/outline";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
-import { Button } from "@/ui/button";
+import { Button } from "@/ui/Button";
 import { useFormState, useFormStatus } from "react-dom";
 import { registrate } from "@/lib/actions";
 
-export default function RegistrationForm() {
+export default function SignUpForm() {
   const [code, action] = useFormState(registrate, undefined);
 
   return (

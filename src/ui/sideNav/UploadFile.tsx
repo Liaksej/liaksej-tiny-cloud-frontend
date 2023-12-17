@@ -3,11 +3,11 @@
 import { ArrowUpTrayIcon, DocumentIcon } from "@heroicons/react/24/outline";
 import { ChangeEvent, useState, MouseEvent } from "react";
 import { createPortal, useFormStatus } from "react-dom";
-import ModalUpload from "@/ui/dashboard/modal-upload";
+import ModalUpload from "@/ui/dashboard/ModalUpload";
 import { sendFileToServer } from "@/lib/actions";
 import { usePathname } from "next/navigation";
 import { lusitana } from "@/ui/fonts";
-import { Button } from "@/ui/button";
+import { Button } from "@/ui/Button";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
 

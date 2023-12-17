@@ -1,5 +1,5 @@
-import CloudLogo from "@/ui/cloud-logo";
-import RegistrationForm from "@/ui/registration-form";
+import CloudLogo from "@/ui/sideNav/CloudLogo";
+import SignUpForm from "@/ui/RegistrationForm";
 import Link from "next/link";
 
 export default function SignUpPage() {
@@ -13,7 +13,7 @@ export default function SignUpPage() {
             </div>
           </div>
         </Link>
-        <RegistrationForm />
+        <SignUpForm />
       </div>
     </main>
   );

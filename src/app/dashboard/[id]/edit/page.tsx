@@ -1,8 +1,8 @@
-import Breadcrumbs from "@/ui/dashboard/breadcrumbs";
+import Breadcrumbs from "@/ui/dashboard/Breadcrumbs";
 import { fetchFile } from "@/lib/data";
 import { notFound } from "next/navigation";
 import { FileEdit } from "@/lib/definitions";
-import EdirFileForm from "@/ui/dashboard/edit-file-form";
+import EdirFileForm from "@/ui/dashboard/EditFileForm";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id;
