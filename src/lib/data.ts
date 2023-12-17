@@ -91,6 +91,7 @@ export async function fetchFilesPages(
       `${type === "users" ? "auth/users/" : "cloud/files/"}`,
       { username: name, q: query },
     );
+
     if (!response?.ok) {
       throw new Error("Failed to fetch invoices.");
     }
