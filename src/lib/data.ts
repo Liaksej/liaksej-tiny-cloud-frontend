@@ -104,8 +104,8 @@ export async function fetchFile(id: string) {
 }
 
 export async function adminCheck() {
+  const session = await auth();
   try {
-    const session = await auth();
     const response = await fetchDataFromAPI(
       `auth/users/${session?.user?.name}/`,
     );

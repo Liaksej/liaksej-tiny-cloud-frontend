@@ -29,6 +29,7 @@ ENV NEXT_PUBLIC_BACKEND_URL "http://web:8000/api/"
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED 1
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN pnpm add sharp
 RUN pnpm run build
 
 # If using npm comment out above and use below instead
