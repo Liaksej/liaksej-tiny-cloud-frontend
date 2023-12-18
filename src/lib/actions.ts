@@ -60,8 +60,8 @@ export async function sendFileToServer(formData: FormData) {
 }
 
 export async function deleteFile(formData: FormData) {
+  const session = await auth();
   try {
-    const session = await auth();
     if (!session) {
       console.error("No session");
     }
@@ -87,8 +87,8 @@ export async function deleteFile(formData: FormData) {
 }
 
 export async function deleteUser(formData: FormData) {
+  const session = await auth();
   try {
-    const session = await auth();
     if (!session) {
       console.error("No session");
     }
@@ -153,8 +153,8 @@ export async function updateFile(prevState: State, formData: FormData) {
 }
 
 export async function updateAdminStatus(formData: FormData) {
+  const session = await auth();
   try {
-    const session = await auth();
     if (!session) {
       console.error("No session");
     }
