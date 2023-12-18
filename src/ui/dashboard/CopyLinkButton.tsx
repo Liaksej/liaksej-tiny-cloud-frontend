@@ -26,8 +26,8 @@ export function CopyLinkButton({ public_url }: { public_url: string | null }) {
     <Link
       href={
         public_url
-          ? `${process.env.NEXT_PUBLIC_HOSTNAME}/public/${public_url}`
-          : "#"
+          ? `${process.env.NEXT_PUBLIC_HOSTNAME}public/${public_url}`
+          : `${process.env.NEXT_PUBLIC_HOSTNAME}`
       }
       onClick={(e) => e.preventDefault()}
     >
