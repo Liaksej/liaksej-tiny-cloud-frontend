@@ -115,8 +115,7 @@ export default async function AdminTable({
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">{user.email}</td>
                   <td className="whitespace-nowrap px-3 pr-14 py-3">
-                    {user.first_name}
-                    {user.last_name}
+                    {`${user.first_name} ${user.last_name}`}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
                     {user.count_files}
