@@ -22,7 +22,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-ENV NEXT_PUBLIC_HOSTNAME "http://103.241.67.246/"
+ENV NEXT_PUBLIC_HOSTNAME "http://103-241-67-246.cloud-xip.com:1337/"
 ENV NEXT_PUBLIC_BACKEND_URL "http://web:8000/api/"
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
