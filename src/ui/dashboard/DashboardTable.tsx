@@ -54,14 +54,11 @@ export default async function DashboardTable({
                   >
                     <p className="font-bold">{file.original_name}</p>
                   </Link>
-                  <p className="text-sm text-gray-500">{file.comment}</p>
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
                   <div>
-                    <p className="text-xl font-medium">
-                      {formatSize(file.size)}
-                    </p>
-                    <p>{formatDateToLocal(file["date_created"])}</p>
+                    <p>{formatSize(file.size)}</p>
+                    <p>{`upl: ${formatDateToLocal(file["date_created"])}`}</p>
                   </div>
                   <div className="flex justify-end gap-2">
                     <UpdateFileInfo id={file.id} name={name} />
