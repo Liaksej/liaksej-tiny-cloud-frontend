@@ -61,6 +61,7 @@ export default async function DashboardTable({
                     <p>{`upl: ${formatDateToLocal(file["date_created"])}`}</p>
                   </div>
                   <div className="flex justify-end gap-2">
+                    <CopyLinkButton public_url={file.public_url} />
                     <UpdateFileInfo id={file.id} name={name} />
                     <DeleteItem id={file.id} type="file" />
                   </div>
