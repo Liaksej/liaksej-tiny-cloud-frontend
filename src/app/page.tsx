@@ -34,17 +34,17 @@ export default function MainPage() {
         <div className="flex items-center justify-center p-6 md:w-3/5 md:px-28 md:py-12">
           <Image
             src="/hero-desktop.png"
-            width={1000}
-            height={760}
+            width={600}
+            height={600}
             className="hidden md:block"
-            alt="Screenshots of the dashboard project showing desktop and mobile versions"
+            alt="Screenshots of the project logo"
           />
           <Image
-            src="/hero-mobile.png"
-            width={560}
-            height={620}
+            src="/hero-desktop.png"
+            width={300}
+            height={300}
             className="md:hidden block"
-            alt="Screenshots of the dashboard project showing desktop and mobile versions"
+            alt="Screenshots of the project logo"
           />
         </div>
       </div>
