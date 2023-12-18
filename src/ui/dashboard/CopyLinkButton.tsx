@@ -24,7 +24,11 @@ export function CopyLinkButton({ public_url }: { public_url: string | null }) {
 
   return (
     <Link
-      href={`${process.env.NEXT_PUBLIC_HOSTNAME}/public/${public_url}`}
+      href={
+        public_url
+          ? `${process.env.NEXT_PUBLIC_HOSTNAME}/public/${public_url}`
+          : "#"
+      }
       onClick={(e) => e.preventDefault()}
     >
       <button type="button" onClick={copyToClipboard} disabled={!public_url}>
