@@ -20,7 +20,7 @@ export default function AdminLink() {
       )}
     >
       <AdjustmentsHorizontalIcon className="w-6" />
-      <div className="flex justify-between w-[calc(100%-1.8rem)] pr-3">
+      <div className="hidden md:block flex justify-between w-[calc(100%-1.8rem)] pr-3">
         <p className="hidden md:block">Admin panel</p>
         <p className="text-red-700">
           {pathname.startsWith("/admin") ? "ON" : ""}

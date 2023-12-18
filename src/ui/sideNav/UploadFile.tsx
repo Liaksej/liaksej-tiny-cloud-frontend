@@ -55,7 +55,7 @@ export default function UploadFile() {
           <ModalUpload>
             <form
               action={handleFormSubmit}
-              className="space-y-3 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-[25%]"
+              className="space-y-3 absolute top-1/5 md:top-1/2 left-1/2 -translate-x-1/2 md:-translate-y-1/2 md:min-w-[25%] md:w-fit w-full"
             >
               <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8 border border-gray-400 shadow-2xl">
                 <h1 className={`${lusitana.className} mb-3 text-2xl`}>

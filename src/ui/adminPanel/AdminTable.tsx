@@ -44,21 +44,33 @@ export default async function AdminTable({
                 className="mb-2 w-full rounded-md bg-white p-4"
               >
                 <div className="flex items-center justify-between border-b pb-4">
-                  <p className="font-bold">{user["username"]}</p>
+                  <Link
+                    className="underline text-blue-700"
+                    href={`/admin/${user.username}`}
+                  >
+                    <p className="font-bold">{user["username"]}</p>
+                  </Link>
                   <p className="text-sm text-gray-500">{user.email}</p>
-                  <p className="text-sm text-gray-500">{user.first_name}</p>
-                  <p className="text-sm text-gray-500">{user.last_name}</p>
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
                   <div>
-                    <p className="text-xl font-medium">{user.count_files}</p>
-                    <p className="text-xl font-medium">
-                      {formatSize(user.total_space.size__sum)}
+                    <p className="text-lg">{`${user.count_files} files`}</p>
+                    <p className="text-lg">
+                      {formatSize(user.total_space.size__sum || 0)}
                     </p>
-                    <p>{formatDateToLocal(user.date_joined)}</p>
-                    <p>{formatDateToLocal(user.last_login)}</p>
+                    <p className="text-sm text-gray-500">
+                      {`since: ${formatDateToLocal(user.date_joined)}`}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      {`last login: ${formatDateToLocal(user.last_login)}`}
+                    </p>
                   </div>
-                  <div className="flex justify-end gap-2">
+                  <div className="flex justify-end gap-10 items-center">
+                    <UpdateAdminStatus
+                      username={user.username}
+                      authuser={session?.user?.name as string}
+                      admin={user.is_staff}
+                    />
                     <DeleteItem id={user.username} type="user" />
                   </div>
                 </div>
