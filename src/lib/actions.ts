@@ -208,23 +208,23 @@ export async function registrate(
 
   const credentialsSchema = z
     .object({
-      email: z.string().email(),
+      email: z.string().email({
+        message: "Invalid email",
+      }),
       username: z
         .string()
         .min(4)
         .max(20, {
-          message: "Username must be between 4 and 20 characters",
+          message: "Should be 4-20 characters",
         })
         .regex(/^[a-zA-Z][a-zA-Z0-9]*$/, {
-          message:
-            "Username must start with a letter and contain only letters and numbers",
+          message: "First letter / only letters and numbers",
         }),
       password1: z
         .string()
         .min(6)
         .regex(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, {
-          message:
-            "Password must contain at least one uppercase letter, one number, and one special character",
+          message: "Contains !@#$%^&*?, uppercase, number?",
         }),
       password2: z
         .string()

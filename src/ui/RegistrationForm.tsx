@@ -51,8 +51,11 @@ export default function SignUpForm() {
                   code.errors.username,
               ) && (
                 <>
-                  <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
-                  <p aria-live="polite" className="text-sm text-red-500">
+                  <ExclamationCircleIcon className="h-4 w-4 md:h-5 md:w-5 text-red-500" />
+                  <p
+                    aria-live="polite"
+                    className="text-xs md:text-sm text-red-500"
+                  >
                     {typeof code === "object" &&
                       code.errors &&
                       typeof code.errors === "object" &&
@@ -89,8 +92,11 @@ export default function SignUpForm() {
                   code.errors.email,
               ) && (
                 <>
-                  <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
-                  <p aria-live="polite" className="text-sm text-red-500">
+                  <ExclamationCircleIcon className="h-4 w-4 md:h-5 md:w-5 text-red-500" />
+                  <p
+                    aria-live="polite"
+                    className="text-xs md:text-sm text-red-500"
+                  >
                     {typeof code === "object" &&
                       typeof code.errors === "object" &&
                       code.errors.email}
@@ -127,8 +133,11 @@ export default function SignUpForm() {
                   code.errors.password1,
               ) && (
                 <>
-                  <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
-                  <p aria-live="polite" className="text-sm text-red-500">
+                  <ExclamationCircleIcon className="h-4 w-4 md:h-5 md:w-5 text-red-500" />
+                  <p
+                    aria-live="polite"
+                    className="text-xs md:text-sm text-red-500"
+                  >
                     {typeof code === "object" &&
                       typeof code.errors === "object" &&
                       code.errors.password1}
@@ -165,8 +174,11 @@ export default function SignUpForm() {
                   code.errors.password2,
               ) && (
                 <>
-                  <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
-                  <p aria-live="polite" className="text-sm text-red-500">
+                  <ExclamationCircleIcon className="h-4 w-4 md:h-5 md:w-5 text-red-500" />
+                  <p
+                    aria-live="polite"
+                    className="text-xs md:text-sm text-red-500"
+                  >
                     {typeof code === "object" &&
                       typeof code.errors === "object" &&
                       code.errors.password2}
@@ -254,8 +266,8 @@ export default function SignUpForm() {
         <div className="flex h-8 items-end space-x-1">
           {Boolean(code) && (
             <>
-              <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
-              <p aria-live="polite" className="text-sm text-red-500">
+              <ExclamationCircleIcon className="h-4 w-4 md:h-5 md:w-5 text-red-500" />
+              <p aria-live="polite" className="text-xs md:text-sm text-red-500">
                 {code !== null && typeof code === "object" && code?.message
                   ? code?.message
                   : code}
