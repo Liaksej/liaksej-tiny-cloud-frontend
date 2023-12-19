@@ -51,6 +51,7 @@ export default async function DashboardTable({
                     href={`/download/${file.id}`}
                     className="text-blue-600 underline"
                     target="_blank"
+                    prefetch={false}
                   >
                     <p className="font-bold">{file.original_name}</p>
                   </Link>
@@ -107,6 +108,7 @@ export default async function DashboardTable({
                         className="text-blue-600 underline"
                         href={`/download/${file.id}`}
                         target="_blank"
+                        prefetch={false}
                       >
                         <p>{file.original_name}</p>
                       </Link>

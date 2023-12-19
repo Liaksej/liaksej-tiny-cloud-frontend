@@ -48,6 +48,7 @@ export function CopyLinkButton({ public_url }: { public_url: string | null }) {
           onClick={(e) => {
             !public_url && e.preventDefault();
           }}
+          prefetch={false}
         >
           <span className="sr-only">Copy Link</span>
           <ShareIcon className="w-5" />
