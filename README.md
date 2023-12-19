@@ -9,7 +9,10 @@
 _Загружайте, храните, отображайте, отправляйте, скачивайте и переименовывайте ваши файлы._
 
 ---
+#### Разделы:
 
-[Процеcc установки]()
+1. [Структура приложения](https://github.com/Liaksej/liaksej-tiny-cloud-backend#структура-frontend-liaksej-tiny-cloud-frontend)
+   - [структура frontend](https://github.com/Liaksej/liaksej-tiny-cloud-backend#структура-frontend-liaksej-tiny-cloud-frontend)
+   - [структура backend](https://github.com/Liaksej/liaksej-tiny-cloud-backend#структура-backend-liaksej-tiny-cloud-backend)
+2. [Инструкция по установке](https://github.com/Liaksej/liaksej-tiny-cloud-backend#инструкция-по-установке-на-сервер)
 
-[Структура приложения]()
