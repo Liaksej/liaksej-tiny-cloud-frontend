@@ -37,6 +37,7 @@ export function CopyLinkButton({ public_url }: { public_url: string | null }) {
             ? `${process.env.NEXT_PUBLIC_HOSTNAME}public/${public_url}`
             : `${process.env.NEXT_PUBLIC_HOSTNAME}`
         }
+        target="_blank"
         onClick={(e) => {
           !public_url && e.preventDefault();
         }}
