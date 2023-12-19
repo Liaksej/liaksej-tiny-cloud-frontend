@@ -23,7 +23,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # Set this to your domain name
-ENV NEXT_PUBLIC_HOSTNAME "http://localhost:1337/"
+ENV NEXT_PUBLIC_HOSTNAME "http://localhost/"
 
 ENV NEXT_PUBLIC_BACKEND_URL "http://web:8000/api/"
 # Next.js collects completely anonymous telemetry data about general usage.
