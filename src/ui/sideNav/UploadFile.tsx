@@ -81,14 +81,14 @@ export default function UploadFile() {
                   <div>
                     <label
                       className="mb-3 mt-5 block text-xs font-medium text-gray-900"
-                      htmlFor="email"
+                      htmlFor="name"
                     >
                       Filename
                     </label>
                     <div className="relative">
                       <p
                         className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 pr-3.5 text-sm outline-2 placeholder:text-gray-500"
-                        id="email"
+                        id="name"
                       >
                         {file?.name}
                       </p>
@@ -98,15 +98,15 @@ export default function UploadFile() {
                   <div className="mt-4">
                     <label
                       className="mb-3 mt-5 block text-xs font-medium text-gray-900"
-                      htmlFor="password"
+                      htmlFor="comment"
                     >
                       Comment
                     </label>
                     <div className="relative">
                       <textarea
                         className="peer block w-full rounded-md border border-gray-200 py-[9px] text-sm outline-2 placeholder:text-gray-500"
-                        id="password"
-                        name="password"
+                        id="comment"
+                        name="comment"
                         placeholder="Enter comment..."
                         rows={3}
                         maxLength={150}
