@@ -31,28 +31,28 @@ export function CopyLinkButton({ public_url }: { public_url: string | null }) {
 
   if (!isClipboardAvailable) {
     return (
-      <Link
-        className={clsx(Boolean(!public_url) && "cursor-not-allowed")}
-        href={
-          public_url
-            ? `${process.env.NEXT_PUBLIC_HOSTNAME}public/${public_url}`
-            : `${process.env.NEXT_PUBLIC_HOSTNAME}`
-        }
-        target="_blank"
-        onClick={(e) => {
-          !public_url && e.preventDefault();
-        }}
+      <div
+        className={clsx(
+          "rounded-md border w-[38px] hover:bg-gray-100 flex justify-center relative",
+          !public_url && "bg-gray-200 hover:bg-gray-200 opacity-25",
+        )}
       >
-        <div
-          className={clsx(
-            "rounded-md border p-2 w-[38px] hover:bg-gray-100 flex justify-center relative",
-            !public_url && "bg-gray-200 hover:bg-gray-200 opacity-25",
-          )}
+        <Link
+          className={clsx("p-2", Boolean(!public_url) && "cursor-not-allowed")}
+          href={
+            public_url
+              ? `${process.env.NEXT_PUBLIC_HOSTNAME}public/${public_url}`
+              : `${process.env.NEXT_PUBLIC_HOSTNAME}`
+          }
+          target="_blank"
+          onClick={(e) => {
+            !public_url && e.preventDefault();
+          }}
         >
           <span className="sr-only">Copy Link</span>
           <ShareIcon className="w-5" />
-        </div>
-      </Link>
+        </Link>
+      </div>
     );
   }
 
