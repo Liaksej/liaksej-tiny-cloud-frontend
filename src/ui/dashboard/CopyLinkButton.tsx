@@ -43,7 +43,7 @@ export function CopyLinkButton({ public_url }: { public_url: string | null }) {
       >
         <div
           className={clsx(
-            "rounded-md border p-2 hover:bg-gray-100 flex justify-center relative",
+            "rounded-md border p-2 w-[38px] hover:bg-gray-100 flex justify-center relative",
             !public_url && "bg-gray-200 hover:bg-gray-200 opacity-25",
           )}
         >
