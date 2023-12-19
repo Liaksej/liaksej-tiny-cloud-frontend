@@ -1,6 +1,10 @@
 "use client";
 
-import { ArrowUpTrayIcon, DocumentIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowUpTrayIcon,
+  DocumentIcon,
+  ExclamationCircleIcon,
+} from "@heroicons/react/24/outline";
 import { ChangeEvent, useState, MouseEvent } from "react";
 import { createPortal, useFormStatus } from "react-dom";
 import ModalUpload from "@/ui/dashboard/ModalUpload";
@@ -14,12 +18,22 @@ import clsx from "clsx";
 export default function UploadFile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [file, setFile] = useState<File | undefined>(undefined);
+  const [alertFileSize, setAlertFileSize] = useState<string | undefined>(
+    undefined,
+  );
 
   const pathname = usePathname();
 
   function handlerFileChange(event: ChangeEvent<HTMLInputElement>) {
     if (event.target.files) {
       const file = event.target.files[0];
+
+      const maxFileSize = 200 * 1024 * 1024;
+
+      if (file.size > maxFileSize) {
+        setAlertFileSize("File size exceeds the maximum limit of 200MB.");
+      }
+
       setFile(event.target.files[0]);
 
       const reader = new FileReader();
@@ -31,6 +45,7 @@ export default function UploadFile() {
 
   const handleClose = () => {
     setFile(undefined);
+    setAlertFileSize(undefined);
     setIsModalOpen(false);
   };
 
@@ -41,6 +56,7 @@ export default function UploadFile() {
       await sendFileToServer(formData);
       setIsModalOpen(false);
       setFile(undefined);
+      setAlertFileSize(undefined);
     }
   };
 
@@ -97,8 +113,18 @@ export default function UploadFile() {
                       />
                     </div>
                   </div>
+                  <div className="flex mt-1 h-5 items-end space-x-1">
+                    {Boolean(alertFileSize) && (
+                      <>
+                        <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
+                        <p aria-live="polite" className="text-sm text-red-500">
+                          {alertFileSize}
+                        </p>
+                      </>
+                    )}
+                  </div>
                 </div>
-                <UploadButton />
+                <UploadButton disabled={Boolean(alertFileSize)} />
                 <div onClick={handleClose}>
                   <CancelButton />
                 </div>
@@ -132,11 +158,11 @@ export default function UploadFile() {
   );
 }
 
-export function UploadButton() {
+export function UploadButton({ disabled }: { disabled: boolean }) {
   const { pending } = useFormStatus();
 
   return (
-    <Button className="mt-4 w-full" aria-disabled={pending}>
+    <Button className="mt-4 w-full" disabled={disabled} aria-disabled={pending}>
       Upload <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
     </Button>
   );
