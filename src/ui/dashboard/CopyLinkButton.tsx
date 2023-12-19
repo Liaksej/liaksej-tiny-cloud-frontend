@@ -32,6 +32,7 @@ export function CopyLinkButton({ public_url }: { public_url: string | null }) {
   if (!isClipboardAvailable) {
     return (
       <Link
+        className={clsx(Boolean(!public_url) && "cursor-not-allowed")}
         href={
           public_url
             ? `${process.env.NEXT_PUBLIC_HOSTNAME}public/${public_url}`
