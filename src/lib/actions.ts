@@ -259,13 +259,16 @@ export async function registrate(
 
     if (response.status === 400) {
       const error = await response.json();
-      if (
-        error.username &&
-        error.username[0] === "A user with that username already exists."
-      ) {
+      if (error.username && error.username[0]) {
         return {
           errors: response.statusText,
           message: error.username[0],
+        };
+      }
+      if (error.non_field_errors && error.non_field_errors[0]) {
+        return {
+          errors: response.statusText,
+          message: error.non_field_errors[0],
         };
       }
       if (error.password1 && error.password1[0]) {
