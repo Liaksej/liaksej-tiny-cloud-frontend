@@ -18,13 +18,14 @@ export default async function UsersDashboardForAdmin({
     page?: string;
   };
   params: {
-    name: "users" | "files";
+    name: "string";
   };
 }) {
   const query = searchParams?.query ?? DEFAULT_QUERY;
   const currentPage = Number(searchParams?.page) ?? DEFAULT_CURRENT_PAGE;
+  const typeofFetch = "files";
 
-  const totalPages = await fetchFilesPages(query, params.name);
+  const totalPages = await fetchFilesPages(query, typeofFetch, params.name);
 
   return (
     <main className="w-full">
