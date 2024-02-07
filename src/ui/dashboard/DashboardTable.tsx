@@ -11,18 +11,24 @@ export default async function DashboardTable({
   query,
   currentPage,
   name,
+  adminPanel = false,
 }: {
   query: string;
   currentPage: number;
   name?: string;
+  adminPanel?: boolean;
 }) {
   const files = await fetchTableData(query, currentPage, "files", name);
 
   if (!files) {
     if (currentPage > 2) {
-      redirect(`/dashboard?page=${currentPage - 1}`);
+      redirect(
+        `/${adminPanel ? `admin/${name}` : "dashboard"}?page=${
+          currentPage - 1
+        }`,
+      );
     } else {
-      redirect("/dashboard");
+      redirect(`/${adminPanel ? `admin/${name}` : "dashboard"}`);
     }
   }
 

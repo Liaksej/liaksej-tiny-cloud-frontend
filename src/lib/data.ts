@@ -42,6 +42,7 @@ export async function fetchTableData(
   type: "files" | "users",
   name?: string,
 ) {
+  noStore();
   try {
     const response = await fetchDataFromAPI(
       `${type === "users" ? "auth/users/" : "cloud/files/"}`,

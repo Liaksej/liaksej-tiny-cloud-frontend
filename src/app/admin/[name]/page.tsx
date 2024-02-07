@@ -23,9 +23,8 @@ export default async function UsersDashboardForAdmin({
 }) {
   const query = searchParams?.query ?? DEFAULT_QUERY;
   const currentPage = Number(searchParams?.page) ?? DEFAULT_CURRENT_PAGE;
-  const typeofFetch = "files";
 
-  const totalPages = await fetchFilesPages(query, typeofFetch, params.name);
+  const totalPages = await fetchFilesPages(query, "files", params.name);
 
   return (
     <main className="w-full">
@@ -51,6 +50,7 @@ export default async function UsersDashboardForAdmin({
             query={query}
             currentPage={currentPage}
             name={params.name}
+            adminPanel={true}
           />
         </Suspense>
         <div className="mt-5 flex w-full justify-center">
